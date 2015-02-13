@@ -1,24 +1,14 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToDecimal_all.cs
-//
-// Summary:
-// Tests Convert.ToDecimal().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6058ToDecimal_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6058ToDecimal_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTestPositive1()
         {
             ///////////////////////////////////////////// Decimal Convert.ToDecimal( SByte )
@@ -34,12 +24,12 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTestPositive2()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -55,12 +45,12 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTestPositive3()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -80,13 +70,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
-
             }
-
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive4()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -107,12 +95,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
-
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive5()
         {
             ///////////////////////////////////////////// []Decimal Convert.ToDecimal( Boolean )
@@ -124,11 +111,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive6()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -145,11 +132,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive7()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -165,11 +152,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive8()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -186,13 +173,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
-
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive9()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -206,12 +191,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
-
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive10()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -227,11 +211,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive11()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -248,11 +232,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive12()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -270,11 +254,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive13()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -291,12 +275,11 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
-
         }
-        [TestMethod]
+        [Fact]
         public static void runTestPositive14()
         {
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -312,7 +295,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Decimal result = Convert.ToDecimal(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -320,17 +303,17 @@ namespace Test
             {
                 //[] ToDecimal( Object ) - obj = null
                 Decimal bTest = Convert.ToDecimal((Object)null);
-                Assert.AreEqual((Decimal)0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal((Decimal)0, bTest);
             }
 
             //[] ToDecimal( Object, IFP ) - obj = null
             {
                 Decimal bTest = Convert.ToDecimal((Object)null, new TestFormatProvider());
-                Assert.AreEqual((Decimal)0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal((Decimal)0, bTest);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative1()
         {
             // Exception Test Cases
@@ -339,12 +322,12 @@ namespace Test
                 Double[] errorValues = { Double.MaxValue, Double.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal(errorValues[i]); });
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative2()
         {
             // Exception Test Cases
@@ -352,45 +335,42 @@ namespace Test
             Single[] errorValues = { Single.MaxValue, Single.MinValue, };
             for (int i = 0; i < errorValues.Length; i++)
             {
-                Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal(errorValues[i]); }, " Exception not Thrown!");
+                Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal(errorValues[i]); });
             }
-
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative3()
         {
             // Exception Test Cases
             //[] ToDecimal(String) - Exception Cases (null,"100E12","1" + Decimal.MaxValue.ToString())
-            Assert.Throws<FormatException>(() => { Decimal result = Convert.ToDecimal("100E12"); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal("1" + Decimal.MaxValue.ToString()); }, "Exception expected.");
-
+            Assert.Throws<FormatException>(() => { Decimal result = Convert.ToDecimal("100E12"); });
+            Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal("1" + Decimal.MaxValue.ToString()); });
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative4()
         {
             // Exception Test Cases
             //[] ToDecimal(String) - Exception Cases (null,"100E12","1" + Decimal.MaxValue.ToString())
-            Assert.Throws<FormatException>(() => { Decimal result = Convert.ToDecimal("100E12", new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal("1" + Decimal.MaxValue.ToString(), new TestFormatProvider()); }, "Exception expected.");
-
+            Assert.Throws<FormatException>(() => { Decimal result = Convert.ToDecimal("100E12", new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Decimal result = Convert.ToDecimal("1" + Decimal.MaxValue.ToString(), new TestFormatProvider()); });
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative5()
         {
             ///////////////////////////////////////////// Decimal Convert.ToDecimal( Char )
             // Setup Char Test
             // Exception Test Cases
             //[] ToDecimal(Char) - Exception Cases (Char.MinValue, Char.MaxValue, 'b')
-            Char[] errorValues = { 'b', Char.MinValue, Char.MaxValue};
+            Char[] errorValues = { 'b', Char.MinValue, Char.MaxValue };
             for (int i = 0; i < errorValues.Length; i++)
             {
                 try
                 {
                     Decimal result = Convert.ToDecimal(errorValues[i]);
-                    Assert.Fail("FAIL. InvalidCastException expected for index: " + i + " result: " + result + ":" + (int)errorValues[i]);
+                    Assert.True(false, "FAIL. InvalidCastException expected for index: " + i + " result: " + result + ":" + (int)errorValues[i]);
                 }
                 catch (InvalidCastException)
                 {
@@ -400,27 +380,25 @@ namespace Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative6()
         {
             //[] ToDecimal( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Decimal bTest = Convert.ToDecimal(new Object()); }, "Exception expected.");
-
+            Assert.Throws<InvalidCastException>(() => { Decimal bTest = Convert.ToDecimal(new Object()); });
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative7()
         {
             ///////////////////////////////////////////// [] Decimal Convert.ToDecimal( Object, IFormatProvider )
-            Assert.Throws<InvalidCastException>(() => { Decimal bTest = Convert.ToDecimal(new Object(), new TestFormatProvider()); }, "Exception expected.");
-
+            Assert.Throws<InvalidCastException>(() => { Decimal bTest = Convert.ToDecimal(new Object(), new TestFormatProvider()); });
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative8()
         {
             ///////////////////////////////////////////// [] Decimal Convert.ToDecimal( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Decimal bTest = Convert.ToDecimal(DateTime.Now); }, "Exception expected.");
+            Assert.Throws<InvalidCastException>(() => { Decimal bTest = Convert.ToDecimal(DateTime.Now); });
             ////////////////////////////////////////////////////////////////////////////////////////
         }
     }

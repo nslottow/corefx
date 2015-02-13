@@ -1,25 +1,26 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections;
 using System.Text;
 using System.Runtime.InteropServices;
-using CoreFXTestLibrary;
-
-[TestClass]
+using Xunit;
 public class ExpandEnvironmentVariables
 {
-    [TestMethod]
+    [Fact]
     public void NullArgumentThrowsArgumentNull()
     {
         Assert.Throws<ArgumentNullException>(() => Environment.ExpandEnvironmentVariables(null));
     }
 
-    [TestMethod]
+    [Fact]
     public void EmptyArgumentReturnsEmpty()
     {
-        Assert.AreEqual(String.Empty, Environment.ExpandEnvironmentVariables(String.Empty));
+        Assert.Equal(String.Empty, Environment.ExpandEnvironmentVariables(String.Empty));
     }
 
-    [TestMethod]
+    [Fact]
     public void ExpansionOfAllVariablesReturnedByGetEnvironmentVariablesSucceeds()
     {
         bool atLeastOne = false;
@@ -41,24 +42,24 @@ public class ExpandEnvironmentVariables
             atLeastOne = true;
         }
 
-        Assert.AreEqual(atLeastOne, !GetEnvironmentVariable.PlatformBehavesAsIfNoVariablesAreEverSet);
-        Assert.AreEqual(expected.ToString(), Environment.ExpandEnvironmentVariables(input.ToString()));
+        Assert.Equal(atLeastOne, !GetEnvironmentVariable.PlatformBehavesAsIfNoVariablesAreEverSet);
+        Assert.Equal(expected.ToString(), Environment.ExpandEnvironmentVariables(input.ToString()));
     }
 
-    [TestMethod]
+    [Fact]
     public void VariableThatDoesNotExistGoesThroughUnexpanded()
     {
         string unexpanded = "%TestVariable_ThatDoesNotExist%";
-        Assert.AreEqual(unexpanded, Environment.ExpandEnvironmentVariables(unexpanded));
+        Assert.Equal(unexpanded, Environment.ExpandEnvironmentVariables(unexpanded));
     }
 
-    [TestMethod]
+    [Fact]
     public void StringWithNoEnvironmentVariablesGoesThroughUnchnaged()
     {
-        Assert.AreEqual("Hello World", Environment.ExpandEnvironmentVariables("Hello World"));
+        Assert.Equal("Hello World", Environment.ExpandEnvironmentVariables("Hello World"));
     }
 
-    [TestMethod]
+    [Fact]
     public void PotentiallyAmbiguousInputIsHandledCorrectly()
     {
         int count = 6;
@@ -69,15 +70,15 @@ public class ExpandEnvironmentVariables
         for (int i = 0; i < count; i++)
         {
             keys[i] = prefix + (i + 1);
-            Assert.AreEqual(null, Environment.GetEnvironmentVariable(keys[i]));
+            Assert.Equal(null, Environment.GetEnvironmentVariable(keys[i]));
 
             if (i < 3)
             {
-                Assert.AreEqual(true, SetEnvironmentVariable(keys[i], "value" + (i + 1)));
+                Assert.Equal(true, SetEnvironmentVariable(keys[i], "value" + (i + 1)));
             }
         }
 
-        string set1   = keys[0], set2   = keys[1], set3   = keys[2];
+        string set1 = keys[0], set2 = keys[1], set3 = keys[2];
         string unset1 = keys[3], unset2 = keys[4], unset3 = keys[5];
         string value1, value2, value3;
 
@@ -94,58 +95,58 @@ public class ExpandEnvironmentVariables
             value3 = "value3";
         }
 
-        Test( "%",
-              "%" );
+        Test("%",
+              "%");
 
-        Test( "%%",
-              "%%" );
+        Test("%%",
+              "%%");
 
-        Test( "%%%",
-              "%%%" );
+        Test("%%%",
+              "%%%");
 
-        Test( ("%" +  set1    + "%") + set2 + ("%" + set3 + "%"),
-               value1                + set2 + value3 );
+        Test(("%" + set1 + "%") + set2 + ("%" + set3 + "%"),
+               value1 + set2 + value3);
 
-        Test( "%" + ("%" + set1 + "%"),
-              "%" + value1 );
+        Test("%" + ("%" + set1 + "%"),
+              "%" + value1);
 
-        Test( "%%" + ("%" + set1 + "%") + "%%",
-              "%%" + value1 + "%%" );
+        Test("%%" + ("%" + set1 + "%") + "%%",
+              "%%" + value1 + "%%");
 
-        Test( "%%%" + ("%" + set1 + "%") + "%",
+        Test("%%%" + ("%" + set1 + "%") + "%",
               "%%%" + value1 + "%");
 
-        Test( ("%" + set1 + "%") + ("%" + set2 + "%"),
-              value1             + value2 );
+        Test(("%" + set1 + "%") + ("%" + set2 + "%"),
+              value1 + value2);
 
-        Test( ("%" + unset1 + "%") + ("%" + set1 + "%"),
-              ("%" + unset1 + "%") + value1 );
+        Test(("%" + unset1 + "%") + ("%" + set1 + "%"),
+              ("%" + unset1 + "%") + value1);
 
-        Test( ("%" + set2 + "%") + "hello" + ("%" + unset2 + "%"),
-              value2             + "hello" + ("%" + unset2 + "%") );
+        Test(("%" + set2 + "%") + "hello" + ("%" + unset2 + "%"),
+              value2 + "hello" + ("%" + unset2 + "%"));
 
-        Test( ("%" + unset2 + "%") + ("%" + unset3 + "%"),
-              ("%" + unset2 + "%") + ("%" + unset3 + "%") );
+        Test(("%" + unset2 + "%") + ("%" + unset3 + "%"),
+              ("%" + unset2 + "%") + ("%" + unset3 + "%"));
 
-        Test( "% " + set1 + "%",
-              "% " + set1 + "%" );
+        Test("% " + set1 + "%",
+              "% " + set1 + "%");
 
-        Test( "%  " + set1 +  "  %",
-              "%  " + set1 +  "  %" );
+        Test("%  " + set1 + "  %",
+              "%  " + set1 + "  %");
 
-        Test( "%\t" + set1 + "%",
-              "%\t" + set1 + "%" );
+        Test("%\t" + set1 + "%",
+              "%\t" + set1 + "%");
 
-        Test( "%%% " + set1 + "%",
-              "%%% " + set1 + "%" );
+        Test("%%% " + set1 + "%",
+              "%%% " + set1 + "%");
     }
 
     private void Test(string toExpand, string expectedExpansion)
     {
-        Assert.AreEqual(expectedExpansion, Environment.ExpandEnvironmentVariables(toExpand));
-        Assert.AreEqual("qq" + expectedExpansion + "rr", "qq" + Environment.ExpandEnvironmentVariables(toExpand) +"rr");
+        Assert.Equal(expectedExpansion, Environment.ExpandEnvironmentVariables(toExpand));
+        Assert.Equal("qq" + expectedExpansion + "rr", "qq" + Environment.ExpandEnvironmentVariables(toExpand) + "rr");
     }
 
-    [DllImport("api-ms-win-core-processenvironment-l1-1-0.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+    [DllImport("api-ms-win-core-processenvironment-l1-1-0.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     private static extern bool SetEnvironmentVariable(string lpName, string lpValue);
 }

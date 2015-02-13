@@ -1,25 +1,14 @@
-// Closed bug history:
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_FromBase64CharArray_chArr_ii.cs
-//
-// Summary:
-// Tests Convert.ToBase64String(char[], int, int).
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co8639FromBase64CharArray_chArr_ii.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xunit;
 
-[ContractsRequired("System.Collections, System.Runtime, System.Runtime.Extensions")]
 public class Co8639FromBase64CharArray_chArr_ii
 {
-    [TestMethod]
+    [Fact]
     public static void runTest()
     {
         String str1;
@@ -55,7 +44,6 @@ public class Co8639FromBase64CharArray_chArr_ii
                        and to the multipart boundary delimiters defined in RFC 2046 (e.g.,
                        "-").
 
-
                             Table 1: The Base64 Alphabet
 
              Value Encoding  Value Encoding  Value Encoding  Value Encoding
@@ -84,7 +72,7 @@ public class Co8639FromBase64CharArray_chArr_ii
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
 
         //Please read the above description to understand this check			
-        Assert.AreEqual(3, returnValue.Length, "Err_743rewg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
         threeByteRep = (uint)((returnValue[0] << 16) | (returnValue[1] << 8) | returnValue[2]);
         if (((threeByteRep >> 18) != 45)
             || (((threeByteRep << 14) >> 26) != 30)
@@ -92,10 +80,10 @@ public class Co8639FromBase64CharArray_chArr_ii
             || (((threeByteRep << 26) >> 26) != 45)
         )
         {
-            Assert.Fail("Err_834sdg! Unexpected returned result");
+            Assert.True(false, "Err_834sdg! Unexpected returned result");
         }
         //we will do the round trip as well to make sure!!!!
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_835sdg! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         str1 = "";
         chArr = str1.ToCharArray();
@@ -104,7 +92,7 @@ public class Co8639FromBase64CharArray_chArr_ii
 
         if (returnValue == null || returnValue.Length != 0)
         {
-            Assert.Fail("Err_521sra! Unexpected result returned, {0}", (returnValue == null) ? "null" : "Length=" + returnValue.Length);
+            Assert.True(false, "Err_521sra! Unexpected result returned, {0}");
         }
 
         //[]Strings can have the trailing '=' character - again, from the spec
@@ -138,20 +126,20 @@ public class Co8639FromBase64CharArray_chArr_ii
         str1 = "abc=";
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //[]We should correctly handle with 2 = characters
 
         str1 = "ab==";
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(1, returnValue.Length, "Err_83745sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(1, returnValue.Length);
 
         String returnString = Convert.ToBase64String(returnValue);
-        Assert.AreNotEqual(returnString, str1, "Err_983745sd! Unexpected returned result, " + returnString);
+        Assert.NotEqual(returnString, str1);
 
         //But the first 1 character should be correct
-        Assert.AreEqual(str1.Substring(0, 1), returnString.Substring(0, 1), "Err_832745sd! Unexpected returned result");
+        Assert.Equal(str1.Substring(0, 1), returnString.Substring(0, 1));
 
         //[] we should parse if there is any trailing space, '\t', '\n' and 'r' after = and before
         str1 = "abc= \t \r\n =";
@@ -162,24 +150,23 @@ public class Co8639FromBase64CharArray_chArr_ii
         str1 = "abc=  \t\n\t\r ";
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(str1.Trim(), Convert.ToBase64String(returnValue), "Err_=tws! Unexpected returned result");
+        Assert.Equal(str1.Trim(), Convert.ToBase64String(returnValue));
 
         //[] we should parse if there is any trailing space, '\t', '\n' and 'r' after =
         str1 = "abc \r\n\t   =  \t\n\t\r ";
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual("abc=", Convert.ToBase64String(returnValue), "Err_EtyBetuw! Unexpected returned result");
+        Assert.Equal("abc=", Convert.ToBase64String(returnValue));
 
         //[]Is there a limit on the length of the string for this encoding?
         builder = new StringBuilder();
         for (int i = 0; i < 10000; i++)
             builder.Append('a');
 
-
         str1 = builder.ToString();
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_89374sdg! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         str1 = "test";
         str2 = str1;
@@ -188,10 +175,10 @@ public class Co8639FromBase64CharArray_chArr_ii
         str1 = str1.Insert(str1.IndexOf('e'), new String(' ', 1654));
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         //[] try other characters we are going to ignore
         //we ignore the following white spaces
@@ -207,10 +194,10 @@ public class Co8639FromBase64CharArray_chArr_ii
         str1 = str1.Insert(str1.IndexOf('e'), new String((Char)9, 1987));
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         str1 = "test";
         str2 = str1;
@@ -219,10 +206,10 @@ public class Co8639FromBase64CharArray_chArr_ii
         str1 = str1.Insert(str1.IndexOf('e'), new String((Char)10, 1771));
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         str1 = "test";
         str2 = str1;
@@ -231,75 +218,75 @@ public class Co8639FromBase64CharArray_chArr_ii
         str1 = str1.Insert(str1.IndexOf('e'), new String((Char)13, 1870));
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         str1 = "test";
         chArr = str1.ToCharArray();
         returnValue = Convert.FromBase64CharArray(chArr, 0, 0);
-        Assert.AreEqual(0, returnValue.Length, "Should have no length");
+        Assert.Equal(0, returnValue.Length);
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative()
     {
         byte[] returnValue = null;
 
         //[] parms - if Char[] is null
-        Assert.Throws<ArgumentNullException>(() => { returnValue = Convert.FromBase64CharArray(null, 0, 3); }, "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentNullException>(() => { returnValue = Convert.FromBase64CharArray(null, 0, 3); });
 
         //[]parm - int parms
 
         string str1 = "test";
         char[] chArr = str1.ToCharArray();
-        Int32[] negativeNumbers = new Int32[] 
-            { 
-                -580211910, -1301763964, -1114274334, -484101405, -234109782, -1945711799, -598646168, 
-                -1589786299, -19199566, -895444420, -1207731394, -1382096580, -1170653708, -836346455, -1866732604, 
+        Int32[] negativeNumbers = new Int32[]
+            {
+                -580211910, -1301763964, -1114274334, -484101405, -234109782, -1945711799, -598646168,
+                -1589786299, -19199566, -895444420, -1207731394, -1382096580, -1170653708, -836346455, -1866732604,
                 -1601915819, -1518260224, -1983761395, -1706826589, -255553951, Int32.MinValue
             };
         for (int i = 0; i < negativeNumbers.Length; i++)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, negativeNumbers[i], chArr.Length), "Err_3475sdg! No Exception returned for i: " + i);
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, negativeNumbers[i]), "Err_3475sdg! No Exception returned for i: " + i);
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, negativeNumbers[i], chArr.Length));
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, negativeNumbers[i]));
         }
 
-        Int32[] positiveNumbers = new Int32[] 
+        Int32[] positiveNumbers = new Int32[]
             {
                 987060368, 2051597101, 456045065, 638925134, 81065981, 1338449972, 1179281288, 74776406, 1679264303, 1191885711,
-                1743940135, 873187169, 950191869, 179426799, 1032089466, 813931898, 2109084534, 204677719, 356595643, 1311812948, 
+                1743940135, 873187169, 950191869, 179426799, 1032089466, 813931898, 2109084534, 204677719, 356595643, 1311812948,
                 Int32.MaxValue
             };
 
         for (int i = 0; i < positiveNumbers.Length; i++)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, positiveNumbers[i], chArr.Length), "Err_3475sdg! No Exception returned for i: " + i);
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, positiveNumbers[i]), "Err_3475sdg! No Exception returned for i: " + i);
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, positiveNumbers[i], chArr.Length));
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, positiveNumbers[i]));
         }
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, (chArr.Length + 5), chArr.Length), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, (chArr.Length + 5), chArr.Length));
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length + 1), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length + 1));
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 1, chArr.Length), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.FromBase64CharArray(chArr, 1, chArr.Length));
 
         //[] parms - if string is less than 4 characters
         str1 = "No";
         chArr = str1.ToCharArray();
 
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_879345d! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[] parms - if string is not multiple of 4 characters
         str1 = "NoMore";
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_9745sgd! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[] parms - if string does not contain valid characters
         str1 = "2-34";
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_934tsdg! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[]We'll make sure of the invalid characters much more thorougly here by looking at the whole unicode range
 
@@ -328,55 +315,53 @@ public class Co8639FromBase64CharArray_chArr_ii
             } while (count == 0);
 
             str1 = builder.ToString();
-            Assert.AreEqual(4, str1.Length, "Loc_54wgsg! wrong argumetns");
+            Assert.Equal(4, str1.Length);
             chArr = str1.ToCharArray();
-            Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_3947sdg! No Exception returned, " + str1);
+            Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
         }
 
         //[] we should throw if there are 3 = character in the string
         str1 = "a===";
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_94375sdg! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[] we should throw if there are 3 = character in the string, after removing space, '\t', '\n' and '\r'
         str1 = "a===\r  \t  \n";
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_94375sdg! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[] we should throw if the = character is in the middle
         str1 = "No=n";
         chArr = str1.ToCharArray();
 
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_39407g! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[] we should throw if there are more than 3 = character in the string
         str1 = "abc=====";
         chArr = str1.ToCharArray();
 
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_39407g! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         //[]Bug 97500 try adding some = characters in a valid range - "abcdabc=abcd"
 
         str1 = "abcdabc=abcd";
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_879345d! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         str1 = "abcdab==abcd";
 
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_879345d! No Exception returned");
-
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         str1 = "abcda===abcd";
 
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_879345d! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
 
         str1 = "abcd====abcd";
 
         chArr = str1.ToCharArray();
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length), "Err_879345d! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64CharArray(chArr, 0, chArr.Length));
     }
 }
-
 

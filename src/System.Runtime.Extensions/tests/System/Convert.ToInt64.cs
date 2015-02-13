@@ -1,25 +1,17 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToInt64_all.cs
-//
-// Summary:
-// Tests Convert.ToInt64().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6062ToInt64_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.ArgumentException))]
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.FormatException))]
+
 namespace Test
 {
     [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6062ToInt64_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
             ///////////////////////////////////////////// Int64 Convert.ToInt64( Boolean )
@@ -34,7 +26,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -50,8 +42,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -67,8 +58,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -84,7 +74,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +90,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +106,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +122,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -146,8 +136,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +152,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -174,10 +163,10 @@ namespace Test
             // Setup String, Int32 Test
             {
                 String[] dummy = { null, };
-                Assert.AreEqual(0, Convert.ToInt64(dummy[0], 10), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt64(dummy[0], 2), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt64(dummy[0], 8), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt64(dummy[0], 16), "Should be equal");
+                Assert.Equal(0, Convert.ToInt64(dummy[0], 10));
+                Assert.Equal(0, Convert.ToInt64(dummy[0], 2));
+                Assert.Equal(0, Convert.ToInt64(dummy[0], 8));
+                Assert.Equal(0, Convert.ToInt64(dummy[0], 16));
             }
             {
                 String[] testValues = { "7FFFFFFFFFFFFFFF", "9223372036854775807", "777777777777777777777", "111111111111111111111111111111111111111111111111111111111111111", "8000000000000000", "-9223372036854775808", "1000000000000000000000", "1000000000000000000000000000000000000000000000000000000000000000", };
@@ -187,7 +176,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i], testBases[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -204,7 +193,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -220,7 +209,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -237,7 +226,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -253,7 +242,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -270,7 +259,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -286,23 +275,23 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int64 result = Convert.ToInt64(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
             //[] ToInt64( Object ) - obj = null
             {
                 Int64 bTest = Convert.ToInt64((Object)null);
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
 
             {
                 Int64 bTest = Convert.ToInt64((Object)null, new TestFormatProvider());
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative()
         {
             {
@@ -312,7 +301,7 @@ namespace Test
                 Double[] errorValues = { Double.MaxValue, Double.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(errorValues[i]); });
                 }
             }
             {
@@ -321,7 +310,7 @@ namespace Test
                 Single[] errorValues = { Single.MaxValue, Single.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(errorValues[i]); });
                 }
             }
             {
@@ -331,22 +320,21 @@ namespace Test
                 Decimal[] errorValues = { Decimal.MaxValue, Decimal.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(errorValues[i]); }, " Exception not Thrown!");
-
+                    Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(errorValues[i]); });
                 }
             }
             // Exception Test Cases
             //[] ToInt64(String) - Exception Cases ("1" + Int64.MaxValue.ToString(),Int64.MinValue.ToString()+ "1",null,"abba")
 
-            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64("1" + Int64.MaxValue.ToString()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(Int64.MinValue.ToString() + "1"); }, "Exception expected.");
-            Assert.Throws<FormatException>(() => { Int64 result = Convert.ToInt64("abba"); }, "Exception expected.");
+            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64("1" + Int64.MaxValue.ToString()); });
+            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(Int64.MinValue.ToString() + "1"); });
+            Assert.Throws<FormatException>(() => { Int64 result = Convert.ToInt64("abba"); });
 
             // Exception Test Cases
             //[] ToInt64(String) - Exception Cases ("1" + Int64.MaxValue.ToString(),Int64.MinValue.ToString()+ "1",null,"abba")
-            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64("1" + Int64.MaxValue.ToString(), new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(Int64.MinValue.ToString() + "1", new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<FormatException>(() => { Int64 result = Convert.ToInt64("abba", new TestFormatProvider()); }, "Exception expected.");
+            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64("1" + Int64.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(Int64.MinValue.ToString() + "1", new TestFormatProvider()); });
+            Assert.Throws<FormatException>(() => { Int64 result = Convert.ToInt64("abba", new TestFormatProvider()); });
 
             {
                 // Exception Test Cases
@@ -360,37 +348,35 @@ namespace Test
                     try
                     {
                         Int64 result = Convert.ToInt64(errorValues[i], errorBases[i]);
-                        Assert.Fail("Exception expected: " + expectedExceptions[i]);
+                        Assert.True(false, "Exception expected: " + expectedExceptions[i]);
                     }
                     catch (Exception e)
                     {
-                        Assert.IsTrue(e.GetType().FullName.Equals(expectedExceptions[i]),
-                            " Wrong Exception Thrown. Expected" + expectedExceptions[i] + ", Actual: " + e.GetType().FullName);
+                        Assert.True(e.GetType().FullName.Equals(expectedExceptions[i]), " Wrong Exception Thrown. Expected" + expectedExceptions[i] + ", Actual: " + e.GetType().FullName);
                     }
                 }
             }
 
             // Exception Test Cases
             //[] ToInt64(UInt64) - Exception Cases (UInt64.MaxValue)
-            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(UInt64.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int64 result = Convert.ToInt64(UInt64.MaxValue); });
 
             ///////////////////////////////////////////// Int64 Convert.ToInt64( Object )
             //[] ToInt64( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Int64 bTest = Convert.ToInt64(new Object()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int64 bTest = Convert.ToInt64(new Object()); });
 
             ///////////////////////////////////////////// []Int64 Convert.ToInt64( Object, IFormatProvider )
-            Assert.Throws<InvalidCastException>(() => { Int64 bTest = Convert.ToInt64(new Object(), new TestFormatProvider()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int64 bTest = Convert.ToInt64(new Object(), new TestFormatProvider()); });
 
             ///////////////////////////////////////////// []Int16 Convert.ToInt16( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Int64 bTest = Convert.ToInt64(DateTime.Now); }, " No Exception Thrown");
-
+            Assert.Throws<InvalidCastException>(() => { Int64 bTest = Convert.ToInt64(DateTime.Now); });
         }
     }
 
     /// <summary>
     /// Helper class to test that the IFormatProvider is being called.
     /// </summary>
-    class TestFormatProvider : IFormatProvider
+    internal class TestFormatProvider : IFormatProvider
     {
         public object GetFormat(Type formatType)
         {

@@ -1,29 +1,16 @@
-// Closed bugs: VSWhidbey #101520 (C++ compiler bug)
-// Note: This testfile is a multi-method one. It tests Convert.ToString() and there are 13 methods in this. 9 methods
-// are pretty straight forward and a variant array is used to test these. The methods that take the data tytpe and a base
-// type (2,8,10,16) is a bit complex (there are 4 of these methods) and they are tested separately.
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToString_all.cpp
-//
-// Summary:
-// Tests Convert.ToString().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Cc3715ToString_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Globalization;
+using Xunit;
 
 // These are so tests won't get hit with EEType when converting ToString
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(Cc3715ToString_all))]
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.Globalization.NumberFormatInfo))]
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(Foo))]
 
-class FooFormattable : IFormattable
+internal class FooFormattable : IFormattable
 {
     private int _value;
     public FooFormattable(int value) { _value = value; }
@@ -41,7 +28,7 @@ class FooFormattable : IFormattable
     }
 }
 
-class Foo
+internal class Foo
 {
     private int _value;
     public Foo(int value) { _value = value; }
@@ -59,323 +46,321 @@ class Foo
     }
 }
 
-[ContractsRequired("System.Globalization, System.Runtime, System.Runtime.Extensions")]
 public class Cc3715ToString_all
 {
     private const int iNormalArraySize = 66;
     private const int iBaseArraySize = 3;
     private const int iCharArraySize = 4;
 
-    private static Object[] vArrInputs = new Object[iNormalArraySize];
-    private static Char[] cArrInputs;
+    private static Object[] s_vArrInputs = new Object[iNormalArraySize];
+    private static Char[] s_cArrInputs;
 
-    private static Int32[] iArrBaseInputs;
-    private static Int64[] lArrBaseInputs;
-    private static Int16[] sArrBaseInputs;
-    private static Byte[] uArrBaseInputs;
+    private static Int32[] s_iArrBaseInputs;
+    private static Int64[] s_lArrBaseInputs;
+    private static Int16[] s_sArrBaseInputs;
+    private static Byte[] s_uArrBaseInputs;
 
-    private static String[] strArrExps = new String[iNormalArraySize];
-    private static String[] strCArrExps;
-    private static String[] strArrBaseExps;
+    private static String[] s_strArrExps = new String[iNormalArraySize];
+    private static String[] s_strCArrExps;
+    private static String[] s_strArrBaseExps;
 
-    static String strResult;
-    static int iBase;
-    static Object vnt1;
+    private static String s_strResult;
+    private static int s_iBase;
+    private static Object s_vnt1;
 
-    static Cc3715ToString_all() {
+    static Cc3715ToString_all()
+    {
         //Vanila 9 test cases		
         FillNormalInputsAndRslts();
 
         // test for char
-        strCArrExps = new String[iCharArraySize];
-        cArrInputs = new Char[iCharArraySize];
+        s_strCArrExps = new String[iCharArraySize];
+        s_cArrInputs = new Char[iCharArraySize];
 
-        strArrBaseExps = new String[iBaseArraySize];
-        iArrBaseInputs = new Int32[iBaseArraySize];
+        s_strArrBaseExps = new String[iBaseArraySize];
+        s_iArrBaseInputs = new Int32[iBaseArraySize];
 
-        sArrBaseInputs = new Int16[iBaseArraySize];
+        s_sArrBaseInputs = new Int16[iBaseArraySize];
 
         FillBaseShortInputs();
         FillBase2ShortRslts();
 
         FillMoreNormalInputsAndRslts();
 
-        lArrBaseInputs = new Int64[iBaseArraySize];
+        s_lArrBaseInputs = new Int64[iBaseArraySize];
 
         FillBaseLongInputs();
         FillBase2LongRslts();
 
-        uArrBaseInputs = new Byte[iBaseArraySize];
+        s_uArrBaseInputs = new Byte[iBaseArraySize];
 
         FillBaseUCInputs();
         FillBase2UCRslts();
 
         FillBaseIntInputs();
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void convertTest1()
     {
         //Update: 2001/03/31 unfortuntaly, the il treats this as calls to Convert.ToString(Object)
         //We want these to be handled independently. Hence writing more code below to call each individual type separately.
 
-        for (int i = 0; i < vArrInputs.Length; i++)
+        for (int i = 0; i < s_vArrInputs.Length; i++)
         {
-            strResult = Convert.ToString(vArrInputs[i]);
-            Assert.AreEqual(strArrExps[i], strResult, "Expected them to be the same.");
-            strResult = Convert.ToString(vArrInputs[i], new NumberFormatInfo());
-            Assert.AreEqual(strArrExps[i], strResult, "Expected to be the same.");
+            s_strResult = Convert.ToString(s_vArrInputs[i]);
+            Assert.Equal(s_strArrExps[i], s_strResult);
+            s_strResult = Convert.ToString(s_vArrInputs[i], new NumberFormatInfo());
+            Assert.Equal(s_strArrExps[i], s_strResult);
         }
     }
 
-    [TestMethod]
+    [Fact]
     public static void convertTestChar()
     {
-        for (int aa = 0; aa < cArrInputs.Length; aa++)
+        for (int aa = 0; aa < s_cArrInputs.Length; aa++)
         {
-            strResult = Convert.ToString(cArrInputs[aa]);
-            Assert.AreEqual(strCArrExps[aa], strResult, "Expected the same results.");
-            strResult = Convert.ToString(cArrInputs[aa], new NumberFormatInfo());
-            Assert.AreEqual(strCArrExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_cArrInputs[aa]);
+            Assert.Equal(s_strCArrExps[aa], s_strResult);
+            s_strResult = Convert.ToString(s_cArrInputs[aa], new NumberFormatInfo());
+            Assert.Equal(s_strCArrExps[aa], s_strResult);
         }
     }
 
-    [TestMethod]
+    [Fact]
     public static void ConvertFromIntBase2()
     {
         //base 4 cases, base 2: GROAN, cant use Variant
         // So slog along, int, base 2
         FillBaseIntInputs();
         FillBase2IntRslts();
-        iBase = 2;
+        s_iBase = 2;
 
-        for (int aa = 0; aa < iArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_iArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(iArrBaseInputs[aa], iBase);
+            s_strResult = Convert.ToString(s_iArrBaseInputs[aa], s_iBase);
 
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Should be the same");
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromIntBase8()
     {
         // int, base 8
         FillBase8IntRslts();
-        iBase = 8;
+        s_iBase = 8;
 
-        for (int aa = 0; aa < iArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_iArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(iArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_iArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromIntBase10()
     {
         // int, base 10
         FillBase10IntRslts();
-        iBase = 10;
+        s_iBase = 10;
 
-        for (int aa = 0; aa < iArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_iArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(iArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_iArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromBase16()
     {
         // int, base 16
         FillBase16IntRslts();
-        iBase = 16;
+        s_iBase = 16;
 
-        for (int aa = 0; aa < iArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_iArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(iArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_iArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromLongBase2()
     {
         // So slog along, __int64, base 2
-        lArrBaseInputs = new Int64[iBaseArraySize];
+        s_lArrBaseInputs = new Int64[iBaseArraySize];
 
         FillBaseLongInputs();
         FillBase2LongRslts();
-        iBase = 2;
+        s_iBase = 2;
 
-        for (int aa = 0; aa < lArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_lArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(lArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_lArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromLongBase8()
     {
         // long, base 8
         FillBase8LongRslts();
-        iBase = 8;
+        s_iBase = 8;
 
-        for (int aa = 0; aa < lArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_lArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(lArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_lArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromLongBase10()
     {
         // long, base 10
         FillBase10LongRslts();
-        iBase = 10;
+        s_iBase = 10;
 
-        for (int aa = 0; aa < lArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_lArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(lArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_lArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromLongBase16()
     {
         // long, base 16
         FillBase16LongRslts();
-        iBase = 16;
-        for (int aa = 0; aa < lArrBaseInputs.Length; aa++)
+        s_iBase = 16;
+        for (int aa = 0; aa < s_lArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(lArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_lArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromShortBase2()
     {
         // So slog along, short, base 2
-        sArrBaseInputs = new Int16[iBaseArraySize];
+        s_sArrBaseInputs = new Int16[iBaseArraySize];
 
         FillBaseShortInputs();
         FillBase2ShortRslts();
-        iBase = 2;
+        s_iBase = 2;
 
-        for (int aa = 0; aa < sArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_sArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(sArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_sArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromShortBase8()
     {
         // short, base 8
         FillBase8ShortRslts();
-        iBase = 8;
+        s_iBase = 8;
 
-        for (int aa = 0; aa < sArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_sArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(sArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_sArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
 
-    [TestMethod]
+    [Fact]
     public static void ConvertFromShortBase10()
     {
         // short, base 10
         FillBase10ShortRslts();
-        iBase = 10;
+        s_iBase = 10;
 
-        for (int aa = 0; aa < sArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_sArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(sArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_sArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromShortBase16()
     {
         // short, base 16
         FillBase16ShortRslts();
-        iBase = 16;
+        s_iBase = 16;
 
-        for (int aa = 0; aa < sArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_sArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(sArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_sArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
-
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUcharBase2()
     {
         // So slog along, unsigned char, base 2
-        uArrBaseInputs = new Byte[iBaseArraySize];
+        s_uArrBaseInputs = new Byte[iBaseArraySize];
 
         FillBaseUCInputs();
         FillBase2UCRslts();
-        iBase = 2;
+        s_iBase = 2;
 
-        for (int aa = 0; aa < uArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_uArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(uArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_uArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUcharBase8()
     {
         // unsigned char, base 8
         FillBase8UCRslts();
-        iBase = 8;
+        s_iBase = 8;
 
-        for (int aa = 0; aa < uArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_uArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(uArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_uArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUCharBase10()
     {
         // unsigned char, base 10
         FillBase10UCRslts();
-        iBase = 10;
+        s_iBase = 10;
 
-        for (int aa = 0; aa < uArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_uArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(uArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_uArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUcharBase16()
     {
-        uArrBaseInputs = new Byte[iBaseArraySize];
+        s_uArrBaseInputs = new Byte[iBaseArraySize];
 
         FillBaseUCInputs();
         FillBase2UCRslts();
 
         // unsigned char, base 16
         FillBase16UCRslts();
-        iBase = 16;
+        s_iBase = 16;
 
-        for (int aa = 0; aa < uArrBaseInputs.Length; aa++)
+        for (int aa = 0; aa < s_uArrBaseInputs.Length; aa++)
         {
-            strResult = Convert.ToString(uArrBaseInputs[aa], iBase);
-            Assert.AreEqual(strArrBaseExps[aa], strResult, "Expected the same results.");
+            s_strResult = Convert.ToString(s_uArrBaseInputs[aa], s_iBase);
+            Assert.Equal(s_strArrBaseExps[aa], s_strResult);
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromObject()
     {
         //[] ToString(Object) - Vanilla Case
-        vnt1 = new Cc3715ToString_all();
-        strResult = Convert.ToString(vnt1);
-        Assert.AreEqual("Cc3715ToString_all", strResult, "Expected to equal");
+        s_vnt1 = new Cc3715ToString_all();
+        s_strResult = Convert.ToString(s_vnt1);
+        Assert.Equal("Cc3715ToString_all", s_strResult);
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromBoolean()
     {
         //[]Boolean
@@ -386,14 +371,13 @@ public class Cc3715ToString_all
             {
                 string expected = testValues[i].ToString();
                 string actual = Convert.ToString(testValues[i]);
-                Assert.AreEqual(expected, actual, "Expected to be same");
+                Assert.Equal(expected, actual);
                 actual = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(expected, actual, "Expected to be same");
-
+                Assert.Equal(expected, actual);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromSByte()
     {
         {
@@ -404,13 +388,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromByte()
     {
         //[]Byte
@@ -421,13 +405,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromInt16Array()
     {
         //[]Int16
@@ -438,13 +422,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUInt16Array()
     {
         //[]UInt16
@@ -455,13 +439,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromInt32Array()
     {
         //[]Int32
@@ -472,13 +456,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUInt32Array()
     {
         //[]UInt32
@@ -489,13 +473,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromInt64Array()
     {
         //[]Int64
@@ -506,13 +490,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromUInt64Array()
     {
         //[]UInt64
@@ -523,13 +507,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromSingleArray()
     {
         //[]Single
@@ -541,13 +525,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromDoubleArray()
     {
         //[]Double
@@ -559,13 +543,13 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromDecimalArray()
     {
         //[]Decimal
@@ -576,20 +560,19 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromDateTimeArray()
     {
-
         //[]DateTime
         {
-            DateTime[] testValues = new DateTime[] { 
-                DateTime.Parse("08/15/2000 16:59:59", DateTimeFormatInfo.InvariantInfo), 
+            DateTime[] testValues = new DateTime[] {
+                DateTime.Parse("08/15/2000 16:59:59", DateTimeFormatInfo.InvariantInfo),
                 DateTime.Parse("01/01/0001 01:01:01", DateTimeFormatInfo.InvariantInfo) };
 
             IFormatProvider formatProvider = DateTimeFormatInfo.GetInstance(new CultureInfo("en-US"));
@@ -597,14 +580,14 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], formatProvider);
                 String expected = testValues[i].ToString(formatProvider);
-                Assert.AreEqual(expected, result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(expected, result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromString()
     {
         //[]String
@@ -614,84 +597,81 @@ public class Cc3715ToString_all
             for (int i = 0; i < testValues.Length; i++)
             {
                 String result = Convert.ToString(testValues[i]);
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.AreEqual(testValues[i].ToString(), result, "Expected result to be the same as type.ToString()");
+                Assert.Equal(testValues[i].ToString(), result);
             }
         }
     }
-    [TestMethod]
+    [Fact]
     public static void ConvertFromIFormattable()
     {
         //[]Object (supports IFormattable) - VSWhidbey 505068
         {
             FooFormattable foo = new FooFormattable(3);
             String result = Convert.ToString(foo);
-            Assert.AreEqual("FooFormattable: 3", result, "Should be equal");
+            Assert.Equal("FooFormattable: 3", result);
             result = Convert.ToString(foo, new NumberFormatInfo());
-            Assert.AreEqual("System.Globalization.NumberFormatInfo: 3", result, "Should be equal.");
+            Assert.Equal("System.Globalization.NumberFormatInfo: 3", result);
 
             foo = null;
             result = Convert.ToString(foo, new NumberFormatInfo());
-            Assert.AreEqual("", result, "Should be Equal.");
+            Assert.Equal("", result);
         }
     }
 
-    [TestMethod]
+    [Fact]
     public static void ConvertFromNonIConvertable()
     {
         //[]Object (supports neither IConvertible nor IFormattable)
         {
             Foo foo = new Foo(3);
             String result = Convert.ToString(foo);
-            Assert.AreEqual("Foo", result, "Should be equal.");
+            Assert.Equal("Foo", result);
             result = Convert.ToString(foo, new NumberFormatInfo());
-            Assert.AreEqual("Foo", result, "Should be equal.");
+            Assert.Equal("Foo", result);
 
             foo = null;
             result = Convert.ToString(foo, new NumberFormatInfo());
-            Assert.AreEqual("", result, "Should be equal.");
+            Assert.Equal("", result);
         }
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative1()
     {
         //[] Exception Case: ToString(Int32,Int32) - set base to 9
         int iBase = 9;
         int iValue = (int)Int32.MaxValue;
 
-        Assert.Throws<ArgumentException>(() => strResult = Convert.ToString(iValue, iBase), "ArgumentException expected.");
-
+        Assert.Throws<ArgumentException>(() => s_strResult = Convert.ToString(iValue, iBase));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative2()
     {
         //[] Exception Case: ToString(Int64,Int32) - set base to 0
-        iBase = 0;
+        s_iBase = 0;
         long lValue = (long)Int64.MaxValue;
-        Assert.Throws<ArgumentException>(() => strResult = Convert.ToString(lValue, iBase), "ArgumentException expected.");
-
+        Assert.Throws<ArgumentException>(() => s_strResult = Convert.ToString(lValue, s_iBase));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative3()
     {
         //[] Exception Case: ToString(Int16,Int32) - set base to 1
-        iBase = 1;
+        s_iBase = 1;
         short sValue = (short)Int16.MaxValue;
-        Assert.Throws<ArgumentException>(() => strResult = Convert.ToString(sValue, iBase), "ArgumentException expected.");
-
+        Assert.Throws<ArgumentException>(() => s_strResult = Convert.ToString(sValue, s_iBase));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative4()
     {
         //[] Exception Case: ToString(Byte,Int32) - set base to Int32.MinValue
-        iBase = Int32.MinValue;
+        s_iBase = Int32.MinValue;
         Byte bValue = (Byte)Byte.MaxValue;
-        Assert.Throws<ArgumentException>(() => strResult = Convert.ToString(bValue, iBase), "ArgumentException expected.");
+        Assert.Throws<ArgumentException>(() => s_strResult = Convert.ToString(bValue, s_iBase));
     }
 
     private static void FillNormalInputsAndRslts()
@@ -705,346 +685,338 @@ public class Cc3715ToString_all
 
         //bool
         //[] ToString(Boolean) - true
-        vArrInputs[i++] = (true);
+        s_vArrInputs[i++] = (true);
         //[] ToString(Boolean) - false
-        vArrInputs[i++] = (false);
+        s_vArrInputs[i++] = (false);
 
         //double
         //[] ToString(double) - -12.2364
-        vArrInputs[i++] = (-12.2364);
+        s_vArrInputs[i++] = (-12.2364);
         //[] ToString(double) - -12.236465923406483
-        vArrInputs[i++] = (-12.236465923406483);
+        s_vArrInputs[i++] = (-12.236465923406483);
         //[] ToString(double) - -1.7753E-83
-        vArrInputs[i++] = (-1.7753E-83);	//10
+        s_vArrInputs[i++] = (-1.7753E-83);	//10
         //[] ToString(double) - +12.345e+234
-        vArrInputs[i++] = (+12.345e+234);
+        s_vArrInputs[i++] = (+12.345e+234);
         //[] ToString(double) - +12e+1
-        vArrInputs[i++] = (+12e+1);
+        s_vArrInputs[i++] = (+12e+1);
         //[] ToString(double) - Double.NegativeInfinity
         Double d = Double.NegativeInfinity;
-        vArrInputs[i++] = (d);
+        s_vArrInputs[i++] = (d);
         //[] ToString(double) - Double.PositiveInfinity
         d = Double.PositiveInfinity;
-        vArrInputs[i++] = (d);
+        s_vArrInputs[i++] = (d);
         //[] ToString(double) - Double.NaN
         d = Double.NaN;
-        vArrInputs[i++] = (d); ;
-
-
+        s_vArrInputs[i++] = (d); ;
 
         //float
         //[] ToString(Single) - -12.2364
-        vArrInputs[i++] = ((float)(-12.2364));
+        s_vArrInputs[i++] = ((float)(-12.2364));
         //[] ToString(Single) - -12.2364659234064826243
-        vArrInputs[i++] = ((float)(-12.2364659234064826243));
+        s_vArrInputs[i++] = ((float)(-12.2364659234064826243));
         //[] ToString(Single) - -1.7753e-83
-        vArrInputs[i++] = ((float)(-1.7753e-83));
+        s_vArrInputs[i++] = ((float)(-1.7753e-83));
         //[] ToString(Single) - +12.345e+234
-        vArrInputs[i++] = ((float)+12.345e+234);
+        s_vArrInputs[i++] = ((float)+12.345e+234);
         //[] ToString(Single) - +12e+1
-        vArrInputs[i++] = ((float)+12e+1);		//20
+        s_vArrInputs[i++] = ((float)+12e+1);		//20
         //[] ToString(Single) - Single.NegativeInfinity
         Single s = Single.NegativeInfinity;
-        vArrInputs[i++] = (s);
+        s_vArrInputs[i++] = (s);
         //[] ToString(Single) - Single.PositiveInfinity
         s = Single.PositiveInfinity;
-        vArrInputs[i++] = (s);
+        s_vArrInputs[i++] = (s);
         //[] ToString(Single) - Single.NaN
         s = Single.NaN;
-        vArrInputs[i++] = (s);
-
+        s_vArrInputs[i++] = (s);
 
         //int
         //[] ToString(Int32) - Int32.MinValue
         Int32 i32 = Int32.MinValue;
-        vArrInputs[i++] = (i32);
+        s_vArrInputs[i++] = (i32);
         //[] ToString(Int32) - 0
-        vArrInputs[i++] = (0);
+        s_vArrInputs[i++] = (0);
         //[] ToString(Int32) - Int32.MaxValue
         i32 = Int32.MaxValue;
-        vArrInputs[i++] = (i32);
-
+        s_vArrInputs[i++] = (i32);
 
         //__int64
         //[] ToString(Int64) - Int64.MinValue
         Int64 i64 = Int64.MinValue;
-        vArrInputs[i++] = (i64);
+        s_vArrInputs[i++] = (i64);
         //[] ToString(Int64) - 0
-        vArrInputs[i++] = (0);
+        s_vArrInputs[i++] = (0);
         //[] ToString(Int64) - Int64.MinValue
         i64 = Int64.MaxValue;
-        vArrInputs[i++] = (i64);
+        s_vArrInputs[i++] = (i64);
 
         //Variant - seems silly, as the data type would be unboxed. Maybe for VB
-        vArrInputs[i++] = (-128);		//30
+        s_vArrInputs[i++] = (-128);		//30
         str1 = "-1.56-e-33";
-        vArrInputs[i++] = str1;
-        vArrInputs[i++] = (true);
-
+        s_vArrInputs[i++] = str1;
+        s_vArrInputs[i++] = (true);
 
         //short
         //[] ToString(Int16) - Int16.MinValue
         Int16 i16 = Int16.MinValue;
-        vArrInputs[i++] = (i16);
+        s_vArrInputs[i++] = (i16);
         //[] ToString(Int16) - 0
-        vArrInputs[i++] = ((Int16)0);
+        s_vArrInputs[i++] = ((Int16)0);
         //[] ToString(Int16) - Int16.MinValue
         i16 = Int16.MaxValue;
-        vArrInputs[i++] = (i16);
-
+        s_vArrInputs[i++] = (i16);
 
         //Bytes
         //[] ToString(Byte) - Byte.MinValue
         Byte b = Byte.MinValue;
-        vArrInputs[i++] = (b);
+        s_vArrInputs[i++] = (b);
         //[] ToString(Byte) - 127
-        vArrInputs[i++] = ((byte)127);
+        s_vArrInputs[i++] = ((byte)127);
         //[] ToString(Byte) - 128
-        vArrInputs[i++] = ((byte)128);
+        s_vArrInputs[i++] = ((byte)128);
         //[] ToString(Byte) - Byte.MaxValue
         b = Byte.MaxValue;
-        vArrInputs[i++] = (b);
+        s_vArrInputs[i++] = (b);
 
         //SByte
         SByte sb;
         //[] ToString(SByte) - 0
         sb = 0;
-        vArrInputs[i++] = (sb);
+        s_vArrInputs[i++] = (sb);
         //[] ToString(SByte) - 1
         sb = 1;
-        vArrInputs[i++] = (sb);
+        s_vArrInputs[i++] = (sb);
         //[] ToString(SByte) - -1
         sb = -1;
-        vArrInputs[i++] = (sb);
+        s_vArrInputs[i++] = (sb);
         //[] ToString(SByte) - SByte.MinValue
         sb = SByte.MinValue;
-        vArrInputs[i++] = (sb);
+        s_vArrInputs[i++] = (sb);
         //[] ToString(SByte) - SByte.MaxValue
         sb = SByte.MaxValue;
-        vArrInputs[i++] = (sb);
+        s_vArrInputs[i++] = (sb);
 
         //UInt16
         UInt16 uint16;
         //[] ToString(UInt16) - 0
         uint16 = 0;
-        vArrInputs[i++] = (uint16);
+        s_vArrInputs[i++] = (uint16);
         //[] ToString(UInt16) - 1
         uint16 = 1;
-        vArrInputs[i++] = (uint16);
+        s_vArrInputs[i++] = (uint16);
         //[] ToString(UInt16) - 100
         uint16 = 100;
-        vArrInputs[i++] = (uint16);
+        s_vArrInputs[i++] = (uint16);
         //[] ToString(UInt16) - UInt16.MaxValue
         uint16 = UInt16.MaxValue;
-        vArrInputs[i++] = (uint16);
+        s_vArrInputs[i++] = (uint16);
 
         //UInt32
         UInt32 uint32;
         //[] ToString(UInt32) - 0
         uint32 = 0;
-        vArrInputs[i++] = (uint32);
+        s_vArrInputs[i++] = (uint32);
         //[] ToString(UInt32) - 1
         uint32 = 1;
-        vArrInputs[i++] = (uint32);
+        s_vArrInputs[i++] = (uint32);
         //[] ToString(UInt32) - 100
         uint32 = 100;
-        vArrInputs[i++] = (uint32);
+        s_vArrInputs[i++] = (uint32);
         //[] ToString(UInt32) - UInt32.MaxValue
         uint32 = UInt32.MaxValue;
-        vArrInputs[i++] = (uint32);
+        s_vArrInputs[i++] = (uint32);
 
         //UInt64
         UInt64 uint64;
         //[] ToString(UInt64) - 0
         uint64 = 0;
-        vArrInputs[i++] = (uint64);
+        s_vArrInputs[i++] = (uint64);
         //[] ToString(UInt64) - 1
         uint64 = 1;
-        vArrInputs[i++] = (uint64);
+        s_vArrInputs[i++] = (uint64);
         //[] ToString(UInt64) - 100
         uint64 = 100;
-        vArrInputs[i++] = (uint64);
+        s_vArrInputs[i++] = (uint64);
         //[] ToString(UInt64) - UInt64.MaxValue
         uint64 = UInt64.MaxValue;
-        vArrInputs[i++] = (uint64);
+        s_vArrInputs[i++] = (uint64);
 
         //Decimal
         Decimal dec;
         //[] ToString(Decimal) - 0
         dec = Decimal.Zero;
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - 1
         dec = Decimal.One;
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - -1
         dec = Decimal.MinusOne;
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - Decimal.MaxValue
         dec = Decimal.MaxValue;
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - Decimal.MinValue
         dec = Decimal.MinValue;
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - 1.234567890123456789012345678
         dec = Decimal.Parse("1.234567890123456789012345678", NumberFormatInfo.InvariantInfo);
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - 1234.56
         dec = Decimal.Parse("1234.56", NumberFormatInfo.InvariantInfo);
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
         //[] ToString(Decimal) - -1234.56
         dec = Decimal.Parse("-1234.56", NumberFormatInfo.InvariantInfo);
-        vArrInputs[i++] = (dec);
+        s_vArrInputs[i++] = (dec);
 
         //DateTime
         DateTime dt;
         //[] ToString(DateTime) - 08/15/2000 16:59:59					
         dt = DateTime.Parse("08/15/2000 16:59:59", DateTimeFormatInfo.InvariantInfo);
-        vArrInputs[i++] = (dt);
+        s_vArrInputs[i++] = (dt);
         //[] ToString(DateTime) - 01/01/01 01:01:01
         dt = DateTime.Parse("01/01/0001 01:01:01", DateTimeFormatInfo.InvariantInfo);
-        vArrInputs[i++] = (dt);
+        s_vArrInputs[i++] = (dt);
 
         //TimeSpan
         TimeSpan ts;
         //[] ToString(TimeSpan) - 0.00:00:00
         ts = TimeSpan.Parse("0.00:00:00");
-        vArrInputs[i++] = (ts);
+        s_vArrInputs[i++] = (ts);
         //[] ToString(TimeSpan) - 1999.9:09:09
         ts = TimeSpan.Parse("1999.9:09:09");
-        vArrInputs[i++] = (ts);
+        s_vArrInputs[i++] = (ts);
         //[] ToString(TimeSpan) - -1111.1:11:11
         ts = TimeSpan.Parse("-1111.1:11:11");
-        vArrInputs[i++] = (ts);
+        s_vArrInputs[i++] = (ts);
         //[] ToString(TimeSpan) - 1:23:45
         ts = TimeSpan.Parse("1:23:45");
-        vArrInputs[i++] = (ts);
+        s_vArrInputs[i++] = (ts);
         //[] ToString(TimeSpan) - -2:34:56
         ts = TimeSpan.Parse("-2:34:56");
-        vArrInputs[i++] = (ts);
-
+        s_vArrInputs[i++] = (ts);
 
         i = 0;
         //bool
-        strArrExps[i++] = "True";
-        strArrExps[i++] = "False";
+        s_strArrExps[i++] = "True";
+        s_strArrExps[i++] = "False";
 
         //double
-        strArrExps[i++] = "-12.2364";
-        strArrExps[i++] = "-12.2364659234065";
-        strArrExps[i++] = "-1.7753E-83";
-        strArrExps[i++] = "1.2345E+235";
-        strArrExps[i++] = "120";
-        strArrExps[i++] = "-Infinity";
-        strArrExps[i++] = "Infinity";
-        strArrExps[i++] = "NaN";
+        s_strArrExps[i++] = "-12.2364";
+        s_strArrExps[i++] = "-12.2364659234065";
+        s_strArrExps[i++] = "-1.7753E-83";
+        s_strArrExps[i++] = "1.2345E+235";
+        s_strArrExps[i++] = "120";
+        s_strArrExps[i++] = "-Infinity";
+        s_strArrExps[i++] = "Infinity";
+        s_strArrExps[i++] = "NaN";
         //float
-        strArrExps[i++] = "-12.2364";
-        strArrExps[i++] = "-12.23647";
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "Infinity";
-        strArrExps[i++] = "120";
-        strArrExps[i++] = "-Infinity";
-        strArrExps[i++] = "Infinity";
-        strArrExps[i++] = "NaN";
+        s_strArrExps[i++] = "-12.2364";
+        s_strArrExps[i++] = "-12.23647";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "Infinity";
+        s_strArrExps[i++] = "120";
+        s_strArrExps[i++] = "-Infinity";
+        s_strArrExps[i++] = "Infinity";
+        s_strArrExps[i++] = "NaN";
         //int
-        strArrExps[i++] = "-2147483648";
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "2147483647";
+        s_strArrExps[i++] = "-2147483648";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "2147483647";
         //__int64
-        strArrExps[i++] = "-9223372036854775808";
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "9223372036854775807";
+        s_strArrExps[i++] = "-9223372036854775808";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "9223372036854775807";
         //Variant
-        strArrExps[i++] = "-128";
-        strArrExps[i++] = "-1.56-e-33";
-        strArrExps[i++] = "True";
+        s_strArrExps[i++] = "-128";
+        s_strArrExps[i++] = "-1.56-e-33";
+        s_strArrExps[i++] = "True";
         //short
-        strArrExps[i++] = "-32768";
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "32767";
+        s_strArrExps[i++] = "-32768";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "32767";
         //Bytes
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "127";
-        strArrExps[i++] = "128";
-        strArrExps[i++] = "255";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "127";
+        s_strArrExps[i++] = "128";
+        s_strArrExps[i++] = "255";
 
         //SByte
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "1";
-        strArrExps[i++] = "-1";
-        strArrExps[i++] = "-128";
-        strArrExps[i++] = "127";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "1";
+        s_strArrExps[i++] = "-1";
+        s_strArrExps[i++] = "-128";
+        s_strArrExps[i++] = "127";
 
         //UInt16
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "1";
-        strArrExps[i++] = "100";
-        strArrExps[i++] = "65535";
-
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "1";
+        s_strArrExps[i++] = "100";
+        s_strArrExps[i++] = "65535";
 
         //UInt32
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "1";
-        strArrExps[i++] = "100";
-        strArrExps[i++] = "4294967295";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "1";
+        s_strArrExps[i++] = "100";
+        s_strArrExps[i++] = "4294967295";
 
         //UInt64
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "1";
-        strArrExps[i++] = "100";
-        strArrExps[i++] = "18446744073709551615";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "1";
+        s_strArrExps[i++] = "100";
+        s_strArrExps[i++] = "18446744073709551615";
 
         //Decimal
-        strArrExps[i++] = "0";
-        strArrExps[i++] = "1";
-        strArrExps[i++] = "-1";
-        strArrExps[i++] = "79228162514264337593543950335";
-        strArrExps[i++] = "-79228162514264337593543950335";
-        strArrExps[i++] = "1.234567890123456789012345678";
-        strArrExps[i++] = "1234.56";
-        strArrExps[i++] = "-1234.56";
+        s_strArrExps[i++] = "0";
+        s_strArrExps[i++] = "1";
+        s_strArrExps[i++] = "-1";
+        s_strArrExps[i++] = "79228162514264337593543950335";
+        s_strArrExps[i++] = "-79228162514264337593543950335";
+        s_strArrExps[i++] = "1.234567890123456789012345678";
+        s_strArrExps[i++] = "1234.56";
+        s_strArrExps[i++] = "-1234.56";
 
         //DateTime	
         if (CultureInfo.CurrentCulture.Name.Equals("ja-JP"))
         {
             if (CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.Equals("yy/MM/dd"))
             {
-                strArrExps[i++] = "00/08/15 16:59:59";
-                strArrExps[i++] = "01/01/01 1:01:01";
+                s_strArrExps[i++] = "00/08/15 16:59:59";
+                s_strArrExps[i++] = "01/01/01 1:01:01";
             }
             else
             {
-                strArrExps[i++] = "2000/08/15 16:59:59";
-                strArrExps[i++] = "0001/01/01 1:01:01";
+                s_strArrExps[i++] = "2000/08/15 16:59:59";
+                s_strArrExps[i++] = "0001/01/01 1:01:01";
             }
         }
         else if (CultureInfo.CurrentCulture.Name.Equals("en-US"))
         {
             if (CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.Equals("M/d/yy"))
             {
-                strArrExps[i++] = "8/15/00 4:59:59 PM";
-                strArrExps[i++] = "1/1/01 1:01:01 AM";
+                s_strArrExps[i++] = "8/15/00 4:59:59 PM";
+                s_strArrExps[i++] = "1/1/01 1:01:01 AM";
             }
             else
             {
-                strArrExps[i++] = "8/15/2000 4:59:59 PM";
-                strArrExps[i++] = "1/1/0001 1:01:01 AM";
+                s_strArrExps[i++] = "8/15/2000 4:59:59 PM";
+                s_strArrExps[i++] = "1/1/0001 1:01:01 AM";
             }
         }
         else
         {
             DateTime date = DateTime.Parse("08/15/2000 16:59:59", DateTimeFormatInfo.InvariantInfo);
-            strArrExps[i++] = date.ToString();
+            s_strArrExps[i++] = date.ToString();
             date = DateTime.Parse("01/01/0001 01:01:01", DateTimeFormatInfo.InvariantInfo);
-            strArrExps[i++] = date.ToString();
+            s_strArrExps[i++] = date.ToString();
         }
 
         //TimeSpan
-        strArrExps[i++] = "00:00:00";
-        strArrExps[i++] = "1999.09:09:09";
-        strArrExps[i++] = "-1111.01:11:11";
-        strArrExps[i++] = "01:23:45";
-        strArrExps[i++] = "-02:34:56";
+        s_strArrExps[i++] = "00:00:00";
+        s_strArrExps[i++] = "1999.09:09:09";
+        s_strArrExps[i++] = "-1111.01:11:11";
+        s_strArrExps[i++] = "01:23:45";
+        s_strArrExps[i++] = "-02:34:56";
     }
 
     private static void FillMoreNormalInputsAndRslts()
@@ -1052,20 +1024,20 @@ public class Cc3715ToString_all
         int i = 0;
         //w_char
         //[] ToString(Char) - 'a'
-        cArrInputs[i++] = 'a';
+        s_cArrInputs[i++] = 'a';
         //[] ToString(Char) - 'A'
-        cArrInputs[i++] = 'A';
+        s_cArrInputs[i++] = 'A';
         //[] ToString(Char) - '@'
-        cArrInputs[i++] = '@';
+        s_cArrInputs[i++] = '@';
         //[] ToString(Char) - '\n'
-        cArrInputs[i++] = '\n';
+        s_cArrInputs[i++] = '\n';
 
         i = 0;
         //w_char
-        strCArrExps[i++] = "a";
-        strCArrExps[i++] = "A";
-        strCArrExps[i++] = "@";
-        strCArrExps[i++] = "\n";
+        s_strCArrExps[i++] = "a";
+        s_strCArrExps[i++] = "A";
+        s_strCArrExps[i++] = "@";
+        s_strCArrExps[i++] = "\n";
     }
 
     //[] ToString(Int32,Int32) - (Byte.MinValue, Base: 2, 8, 10, 16)	
@@ -1076,9 +1048,9 @@ public class Cc3715ToString_all
     private static void FillBaseIntInputs()
     {
         int i = 0;
-        iArrBaseInputs[i++] = (int)Int32.MinValue;
-        iArrBaseInputs[i++] = (int)0;
-        iArrBaseInputs[i++] = (int)Int32.MaxValue;
+        s_iArrBaseInputs[i++] = (int)Int32.MinValue;
+        s_iArrBaseInputs[i++] = (int)0;
+        s_iArrBaseInputs[i++] = (int)Int32.MaxValue;
     }
 
     //[] ToString(Int64,Int32) - (Byte.MinValue, Base: 2, 8, 10, 16)	
@@ -1089,9 +1061,9 @@ public class Cc3715ToString_all
     private static void FillBaseLongInputs()
     {
         int i = 0;
-        lArrBaseInputs[i++] = Int64.MinValue;
-        lArrBaseInputs[i++] = 0;
-        lArrBaseInputs[i++] = Int64.MaxValue;
+        s_lArrBaseInputs[i++] = Int64.MinValue;
+        s_lArrBaseInputs[i++] = 0;
+        s_lArrBaseInputs[i++] = Int64.MaxValue;
     }
 
     //[] ToString(Int16,Int32) - (Byte.MinValue, Base: 2, 8, 10, 16)	
@@ -1102,9 +1074,9 @@ public class Cc3715ToString_all
     private static void FillBaseShortInputs()
     {
         int i = 0;
-        sArrBaseInputs[i++] = (short)Int16.MinValue;
-        sArrBaseInputs[i++] = (short)0;
-        sArrBaseInputs[i++] = (short)Int16.MaxValue;
+        s_sArrBaseInputs[i++] = (short)Int16.MinValue;
+        s_sArrBaseInputs[i++] = (short)0;
+        s_sArrBaseInputs[i++] = (short)Int16.MaxValue;
     }
 
     //[] ToString(Byte,Int32) - (Byte.MinValue, Base: 2, 8, 10, 16)	
@@ -1115,65 +1087,65 @@ public class Cc3715ToString_all
     private static void FillBaseUCInputs()
     {
         int i = 0;
-        uArrBaseInputs[i++] = Byte.MinValue;
-        uArrBaseInputs[i++] = 128;
-        uArrBaseInputs[i++] = Byte.MaxValue;
+        s_uArrBaseInputs[i++] = Byte.MinValue;
+        s_uArrBaseInputs[i++] = 128;
+        s_uArrBaseInputs[i++] = Byte.MaxValue;
     }
 
     private static void FillBase2IntRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "10000000000000000000000000000000";//32 bits
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "1111111111111111111111111111111";	//31 bits
+        s_strArrBaseExps[i++] = "10000000000000000000000000000000";//32 bits
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "1111111111111111111111111111111";	//31 bits
     }
 
     private static void FillBase2LongRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "1000000000000000000000000000000000000000000000000000000000000000";	//64 bits
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "111111111111111111111111111111111111111111111111111111111111111";		//63 bits
+        s_strArrBaseExps[i++] = "1000000000000000000000000000000000000000000000000000000000000000";	//64 bits
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "111111111111111111111111111111111111111111111111111111111111111";		//63 bits
     }
 
     private static void FillBase2ShortRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "1000000000000000";	//16 bits
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "111111111111111";		//15 bits
+        s_strArrBaseExps[i++] = "1000000000000000";	//16 bits
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "111111111111111";		//15 bits
     }
 
     private static void FillBase2UCRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "10000000";	//8 bits
-        strArrBaseExps[i++] = "11111111";	//8 bits
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "10000000";	//8 bits
+        s_strArrBaseExps[i++] = "11111111";	//8 bits
     }
 
     private static void FillBase8IntRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "20000000000";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "17777777777";
+        s_strArrBaseExps[i++] = "20000000000";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "17777777777";
     }
 
     private static void FillBase8LongRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "1000000000000000000000";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "777777777777777777777";
+        s_strArrBaseExps[i++] = "1000000000000000000000";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "777777777777777777777";
     }
 
     private static void FillBase8ShortRslts()
     {
         int i = 0;
-        strArrBaseExps[i++] = "100000";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "77777";
+        s_strArrBaseExps[i++] = "100000";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "77777";
     }
 
     private static void FillBase8UCRslts()
@@ -1181,9 +1153,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "200";
-        strArrBaseExps[i++] = "377";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "200";
+        s_strArrBaseExps[i++] = "377";
     }
 
     private static void FillBase10IntRslts()
@@ -1191,9 +1163,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "-2147483648";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "2147483647";
+        s_strArrBaseExps[i++] = "-2147483648";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "2147483647";
     }
 
     private static void FillBase10LongRslts()
@@ -1201,9 +1173,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "-9223372036854775808";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "9223372036854775807";
+        s_strArrBaseExps[i++] = "-9223372036854775808";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "9223372036854775807";
     }
 
     private static void FillBase10ShortRslts()
@@ -1211,9 +1183,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "-32768";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "32767";
+        s_strArrBaseExps[i++] = "-32768";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "32767";
     }
 
     private static void FillBase10UCRslts()
@@ -1221,9 +1193,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "128";
-        strArrBaseExps[i++] = "255";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "128";
+        s_strArrBaseExps[i++] = "255";
     }
 
     private static void FillBase16IntRslts()
@@ -1231,9 +1203,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "80000000";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "7fffffff";
+        s_strArrBaseExps[i++] = "80000000";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "7fffffff";
     }
 
     private static void FillBase16LongRslts()
@@ -1241,9 +1213,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "8000000000000000";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "7fffffffffffffff";
+        s_strArrBaseExps[i++] = "8000000000000000";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "7fffffffffffffff";
     }
 
     private static void FillBase16ShortRslts()
@@ -1251,9 +1223,9 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "8000";
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "7fff";
+        s_strArrBaseExps[i++] = "8000";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "7fff";
     }
 
     private static void FillBase16UCRslts()
@@ -1261,8 +1233,8 @@ public class Cc3715ToString_all
         int i = 0;
 
         //int
-        strArrBaseExps[i++] = "0";
-        strArrBaseExps[i++] = "80";
-        strArrBaseExps[i++] = "ff";
+        s_strArrBaseExps[i++] = "0";
+        s_strArrBaseExps[i++] = "80";
+        s_strArrBaseExps[i++] = "ff";
     }
 }

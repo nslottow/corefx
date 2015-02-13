@@ -1,28 +1,29 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
-using CoreFXTestLibrary;
-
-[TestClass]
+using Xunit;
 public class GetEnvironmentVariable
 {
     // TODO: Hard-coded for now -- check with test team how to inject this based
     //       on platform capability.
     internal static readonly bool PlatformBehavesAsIfNoVariablesAreEverSet = false;
 
-    [TestMethod]
+    [Fact]
     public void NullVariableThrowsArgumentNull()
     {
         Assert.Throws<ArgumentNullException>(() => Environment.GetEnvironmentVariable(null));
     }
 
-    [TestMethod]
+    [Fact]
     public void EmptyVariableReturnsNull()
     {
-        Assert.AreEqual(null, Environment.GetEnvironmentVariable(String.Empty));
+        Assert.Equal(null, Environment.GetEnvironmentVariable(String.Empty));
     }
 
-    [TestMethod]
+    [Fact]
     public void RandomLongVariableNameCanRoundTrip()
     {
         // NOTE: The limit of 32766 characters enforced by dekstop
@@ -36,34 +37,34 @@ public class GetEnvironmentVariable
         // found!
 
         string variable = "LongVariable_" + new string('@', 33000);
-        Assert.AreEqual(true, SetEnvironmentVariable(variable, "TestValue"));
+        Assert.Equal(true, SetEnvironmentVariable(variable, "TestValue"));
         string expectedValue = PlatformBehavesAsIfNoVariablesAreEverSet ? null : "TestValue";
 
-        Assert.AreEqual(expectedValue, Environment.GetEnvironmentVariable(variable));
-        Assert.AreEqual(true, SetEnvironmentVariable(variable, null));
+        Assert.Equal(expectedValue, Environment.GetEnvironmentVariable(variable));
+        Assert.Equal(true, SetEnvironmentVariable(variable, null));
     }
 
-    [TestMethod]
+    [Fact]
     public void RandomVariableThatDoesNotExistReturnsNull()
     {
         string variable = "TestVariable_SurelyThisDoesNotExist";
-        Assert.AreEqual(null, Environment.GetEnvironmentVariable(variable));
+        Assert.Equal(null, Environment.GetEnvironmentVariable(variable));
     }
 
-    [TestMethod]
+    [Fact]
     public void VariablesAreCaseInsensitive()
     {
-        Assert.AreEqual(true, SetEnvironmentVariable("ThisIsATestEnvironmentVariable", "TestValue"));
+        Assert.Equal(true, SetEnvironmentVariable("ThisIsATestEnvironmentVariable", "TestValue"));
         string expectedValue = PlatformBehavesAsIfNoVariablesAreEverSet ? null : "TestValue";
 
-        Assert.AreEqual(expectedValue, Environment.GetEnvironmentVariable("ThisIsATestEnvironmentVariable"));
-        Assert.AreEqual(expectedValue, Environment.GetEnvironmentVariable("thisisatestenvironmentvariable"));
-        Assert.AreEqual(expectedValue, Environment.GetEnvironmentVariable("THISISATESTENVIRONMENTVARIABLE"));
-        Assert.AreEqual(expectedValue, Environment.GetEnvironmentVariable("ThISISATeSTENVIRoNMEnTVaRIABLE"));
-        Assert.AreEqual(true, SetEnvironmentVariable("ThisIsATestEnvironmentVariable", null));
+        Assert.Equal(expectedValue, Environment.GetEnvironmentVariable("ThisIsATestEnvironmentVariable"));
+        Assert.Equal(expectedValue, Environment.GetEnvironmentVariable("thisisatestenvironmentvariable"));
+        Assert.Equal(expectedValue, Environment.GetEnvironmentVariable("THISISATESTENVIRONMENTVARIABLE"));
+        Assert.Equal(expectedValue, Environment.GetEnvironmentVariable("ThISISATeSTENVIRoNMEnTVaRIABLE"));
+        Assert.Equal(true, SetEnvironmentVariable("ThisIsATestEnvironmentVariable", null));
     }
 
-    [TestMethod]
+    [Fact]
     public void CanGetAllVariablesIndividually()
     {
         bool atLeastOne = false;
@@ -74,13 +75,13 @@ public class GetEnvironmentVariable
         {
             string name = (string)envEntry.Key;
             string value = Environment.GetEnvironmentVariable(name);
-            Assert.AreEqual(envEntry.Value, value, "Variable Name: " + name);
+            Assert.Equal(envEntry.Value, value);
             atLeastOne = true;
         }
 
-        Assert.AreEqual(atLeastOne, !PlatformBehavesAsIfNoVariablesAreEverSet);
+        Assert.Equal(atLeastOne, !PlatformBehavesAsIfNoVariablesAreEverSet);
     }
 
-    [DllImport("api-ms-win-core-processenvironment-l1-1-0.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+    [DllImport("api-ms-win-core-processenvironment-l1-1-0.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     private static extern bool SetEnvironmentVariable(string lpName, string lpValue);
 }

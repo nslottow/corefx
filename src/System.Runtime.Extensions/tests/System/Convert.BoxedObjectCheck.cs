@@ -1,23 +1,13 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_BoxedObjectCheck.cs
-//
-// Summary:
-// Tests Type Equals and ReferenceEquals.
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co8826BoxedObjectCheck.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Runtime.CompilerServices;
+using Xunit;
 
-[ContractsRequired("System.Runtime, System.Runtime.Extensions")]
 public class Co8826BoxedObjectCheck
 {
-    [TestMethod]
+    [Fact]
     public static void runTest()
     {
         //--------------------------------------------------------------------------
@@ -43,26 +33,24 @@ public class Co8826BoxedObjectCheck
         // 3) If someValue is a boxed primitive, ((IConvertible)someValue).ToType(typeof(object), null) will return a copy of someValue
         // 4) #3 will remain true in the future
 
-
         foreach (Object o in tests)
         {
             Logger.LogInformation("Testing equals, referenceEquals with object: " + o.ToString());
 
             //[]==operator - should return reference equals and we expect false
-            Assert.IsFalse(o == ValueTypeSafety.GetSafeObject(o), "Err_9345sgd! ==operator - should return reference equals and we expect false");
+            Assert.False(o == ValueTypeSafety.GetSafeObject(o), "Err_9345sgd! ==operator - should return reference equals and we expect false");
 
             //[]Equals method - should return value equals and we expect true
-            Assert.AreEqual(ValueTypeSafety.GetSafeObject(o), o, "Err_93427rsg! Equals method - should return value equals and we expect true");
+            Assert.Equal(ValueTypeSafety.GetSafeObject(o), o);
             //[]2Equals method - should return value equals and we expect true
-            Assert.AreEqual(o, ValueTypeSafety.GetSafeObject(o), "Err_93427rsg! 2Equals method - should return value equals and we expect true");
+            Assert.Equal(o, ValueTypeSafety.GetSafeObject(o));
 
             //[]Static Equals method - should return value equals and we expect true
-            Assert.IsTrue(Object.Equals(ValueTypeSafety.GetSafeObject(o), o), "Err_93427rsg! Static Equals method - should return value equals and we expect true");
+            Assert.True(Object.Equals(ValueTypeSafety.GetSafeObject(o), o), "Err_93427rsg! Static Equals method - should return value equals and we expect true");
 
             //[]ReferenceEquals method - should return value equals and we expect false
-            Assert.IsFalse(Object.ReferenceEquals(ValueTypeSafety.GetSafeObject(o), o), "Err_93427rsg! ReferenceEquals method - should return value equals and we expect false");
+            Assert.False(Object.ReferenceEquals(ValueTypeSafety.GetSafeObject(o), o), "Err_93427rsg! ReferenceEquals method - should return value equals and we expect false");
         }
-
         //[]Enum types
 
         //Object o1 = E.ONE;
@@ -79,7 +67,7 @@ public class Co8826BoxedObjectCheck
     }
 }
 
-class ValueTypeSafety
+internal class ValueTypeSafety
 {
     public static object GetSafeObject(object theValue)
     {
@@ -121,7 +109,7 @@ class ValueTypeSafety
     }
 }
 
-enum E
+internal enum E
 {
     ONE = 1,
 }

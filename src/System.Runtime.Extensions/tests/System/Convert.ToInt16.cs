@@ -1,25 +1,16 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToInt16_all.cs
-//
-// Summary:
-// Tests Convert.ToInt16().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6060ToInt16_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.ArgumentException))]
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.FormatException))]
+
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6060ToInt16_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
             ///////////////////////////////////////////// Int16 Convert.ToInt16( Boolean )
@@ -34,7 +25,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +41,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +57,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +73,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +89,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -115,8 +106,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -127,19 +117,17 @@ namespace Test
             // Setup String Test
             {
                 String[] testValues = { "100", "-100", "0", null, };
-                Int16[] expectedValues = { ((Int16)100), -100, ((Int16)0), 
+                Int16[] expectedValues = { ((Int16)100), -100, ((Int16)0),
                                              ((Int16)0), // This was a bug, but we're not going to fix it.  See VSWhidbey #103151
                                          };
                 // Vanila Test Cases
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ///////////////////////////////////////////// []Int16 Convert.ToInt16( String, IFormatPRovider )
-
 
             // Setup String Test
             {
@@ -149,7 +137,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -167,7 +155,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -184,14 +172,14 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i], testBases[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
 
                 String[] dummy = { null, };
-                Assert.AreEqual(0, Convert.ToInt16(dummy[0], 10), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt16(dummy[0], 2), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt16(dummy[0], 8), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt16(dummy[0], 16), "Should be equal");
+                Assert.Equal(0, Convert.ToInt16(dummy[0], 10));
+                Assert.Equal(0, Convert.ToInt16(dummy[0], 2));
+                Assert.Equal(0, Convert.ToInt16(dummy[0], 8));
+                Assert.Equal(0, Convert.ToInt16(dummy[0], 16));
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -207,7 +195,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -223,8 +211,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -241,7 +228,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -259,9 +246,8 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
-
             }
             ////////////////////////////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////// Int16 Convert.ToInt16( Char )
@@ -276,7 +262,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -292,34 +278,33 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int16 result = Convert.ToInt16(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
             //[] ToInt16( Object ) - obj = null
             {
                 Int16 bTest = Convert.ToInt16((Object)null);
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
 
             //[] ToInt16( Object, IFP ) - obj = null
             {
                 Int16 bTest = Convert.ToInt16((Object)null, new TestFormatProvider());
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_negative()
         {
-
             // Exception Test Cases
             //[] ToInt16(Single) - Exception cases (Single.MaxValue, Single.MinValue)
             {
                 Single[] errorValues = { Single.MaxValue, Single.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); });
                 }
             }
 
@@ -329,7 +314,7 @@ namespace Test
                 Double[] errorValues = { ((Double)Int32.MaxValue), ((Double)Int32.MinValue), };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); });
                 }
             }
 
@@ -339,7 +324,7 @@ namespace Test
                 Int32[] errorValues = { Int32.MaxValue, Int32.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); });
                 }
             }
             // Exception Test Cases
@@ -348,7 +333,7 @@ namespace Test
                 Int64[] errorValues = { Int64.MaxValue, Int64.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); });
                 }
             }
             // Exception Test Cases
@@ -357,38 +342,38 @@ namespace Test
                 Decimal[] errorValues = { Decimal.MaxValue, Decimal.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(errorValues[i]); });
                 }
             }
             // Exception Test Cases
 
             //[] ToInt16(String) - Exception cases (Int32.MaxValue.ToString(), Int64.MaxValue.ToString(), null, "abba")
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString()); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString()); });
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString()); });
 
-            Assert.Throws<FormatException>(() => { Int16 result = Convert.ToInt16("abba"); }, " Exception not Thrown!");
+            Assert.Throws<FormatException>(() => { Int16 result = Convert.ToInt16("abba"); });
 
             // Exception Test Cases
 
             //[] ToInt16(String) - Exception cases (Int32.MaxValue.ToString(), Int64.MaxValue.ToString(), null, "abba")
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString(), new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString(), new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(Int32.MaxValue.ToString(), new TestFormatProvider()); });
 
-            Assert.Throws<FormatException>(() => { Int16 result = Convert.ToInt16("abba", new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<FormatException>(() => { Int16 result = Convert.ToInt16("abba", new TestFormatProvider()); });
 
             // Exception Test Cases
             {
                 //[] ToInt16(String) - Exception cases {(null,2),("12",3),("11",5),("abba",8),("ffffffffffffffffffff",16)}
 
-                String[] expectedExceptions = { 
-                                                  "System.FormatException", "System.ArgumentException", "System.ArgumentException", 
-                                                  "System.ArgumentException", "System.FormatException", "System.ArgumentException", 
-                                                  "System.OverflowException", "System.OverflowException", "System.OverflowException", 
-                                                  "System.OverflowException", "System.OverflowException", 
+                String[] expectedExceptions = {
+                                                  "System.FormatException", "System.ArgumentException", "System.ArgumentException",
+                                                  "System.ArgumentException", "System.FormatException", "System.ArgumentException",
+                                                  "System.OverflowException", "System.OverflowException", "System.OverflowException",
+                                                  "System.OverflowException", "System.OverflowException",
                                               };
-                String[] errorValues = { 
-                                           "12", "10", "11", "abba", "ffffffffffffffffffff", "-ab", "32768", "-32769", 
-                                           "11111111111111111", "1FFFF", "777777", 
+                String[] errorValues = {
+                                           "12", "10", "11", "abba", "ffffffffffffffffffff", "-ab", "32768", "-32769",
+                                           "11111111111111111", "1FFFF", "777777",
                                        };
 
                 Int32[] errorBases = { 2, -1, 3, 0, 8, 16, 10, 10, 2, 16, 8, };
@@ -398,36 +383,36 @@ namespace Test
                     try
                     {
                         Int16 result = Convert.ToInt16(errorValues[i], errorBases[i]);
-                        Assert.Fail("Exception expected: " + expectedExceptions[i]);
+                        Assert.True(false, "Exception expected: " + expectedExceptions[i]);
                     }
                     catch (Exception e)
                     {
                         var exceptionName = e.GetType().FullName;
                         var expectedName = expectedExceptions[i];
-                        Assert.AreEqual(exceptionName, expectedName, " Wrong Exception Thrown. index: " + i + " errorValue: " + errorValues[i] + " errorBase : " + errorBases[i]);
+                        Assert.Equal(exceptionName, expectedName);
                     }
                 }
             }
             // Exception Test Cases
 
             //[] ToInt16(UInt16) - Exception cases (UInt16.MaxValue)
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(UInt16.MaxValue); }, " Exception not Thrown!");// Exception Test Cases
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(UInt16.MaxValue); });// Exception Test Cases
 
             //[] ToInt16(UInt32) - Exception cases (UInt32.MaxValue)
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(UInt32.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(UInt32.MaxValue); });
             // Exception Test Cases
             //[] ToInt16(UInt64) - Exception cases (UInt64.MaxValue)
-            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(UInt64.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int16 result = Convert.ToInt16(UInt64.MaxValue); });
 
             ///////////////////////////////////////////// Int16 Convert.ToInt16( Object )
             //[] ToInt16( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Int16 bTest = Convert.ToInt16(new Object()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int16 bTest = Convert.ToInt16(new Object()); });
 
             ///////////////////////////////////////////// []Int16 Convert.ToInt16( Object, IformatProvider )
-            Assert.Throws<InvalidCastException>(() => { Int16 bTest = Convert.ToInt16(new Object(), new TestFormatProvider()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int16 bTest = Convert.ToInt16(new Object(), new TestFormatProvider()); });
 
             ///////////////////////////////////////////// []Int16 Convert.ToInt16( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Int16 bTest = Convert.ToInt16(DateTime.Now); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int16 bTest = Convert.ToInt16(DateTime.Now); });
         }
     }
 }

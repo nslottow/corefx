@@ -1,22 +1,12 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToBoolean_all.cs
-//
-// Summary:
-// Tests Convert.ToBoolean().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6053ToBoolean_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
-using System;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-[ContractsRequired("System.Runtime, System.Runtime.Extensions")]
+using System;
+using Xunit;
+
 public class Co6053ToBoolean_all
 {
-    [TestMethod]
+    [Fact]
     public static void FromInt32()
     {
         //[] ToBoolean( Int32 ) - Int32.MinValue
@@ -31,11 +21,11 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < int3Array.Length; i++)
         {
             Boolean result = Convert.ToBoolean(int3Array[i]);
-            Assert.AreEqual(int3Results[i], result, " Expected = '" + int3Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(int3Results[i], result);
         }
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromInt64()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( Int64 )
@@ -49,14 +39,12 @@ public class Co6053ToBoolean_all
         //// Vanilla Tests
         for (int i = 0; i < int6Array.Length; i++)
         {
-
             Boolean result = Convert.ToBoolean(int6Array[i]);
-            Assert.AreEqual(int6Results[i], result, " Expected = '" + int6Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(int6Results[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromInt16()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( Int16 )
@@ -72,12 +60,11 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < int1Array.Length; i++)
         {
             Boolean result = Convert.ToBoolean(int1Array[i]);
-            Assert.AreEqual(int1Results[i], result, " Expected = '" + int1Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(int1Results[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromIString()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( String )
@@ -98,14 +85,14 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < striArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(striArray[i]);
-            Assert.AreEqual(striResults[i], result, " Expected = '" + striResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(striResults[i], result);
         }
 
-        Assert.IsFalse(Convert.ToBoolean(null), " Got true, expected false");
+        Assert.False(Convert.ToBoolean(null), " Got true, expected false");
 
         //[] ToBoolean( String ) - send in null through string array
         String[] tsA = { null };
-        Assert.IsFalse(Convert.ToBoolean(tsA[0]), " Got true, expected false");
+        Assert.False(Convert.ToBoolean(tsA[0]), " Got true, expected false");
 
         ///////////////////////////////////////////// []Boolean Convert.ToBoolean( String, IFormatProvider ) - IFP is ignored
 
@@ -113,19 +100,17 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < striArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(striArray[i], new TestFormatProvider());
-            Assert.AreEqual(striResults[i], result, " Expected = '" + striResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(striResults[i], result);
         }
 
         //[] ToBoolean( String ) - send in null
-        Assert.IsFalse(Convert.ToBoolean(null, new TestFormatProvider()), " Got true, expected false");
+        Assert.False(Convert.ToBoolean(null, new TestFormatProvider()), " Got true, expected false");
 
         //[] ToBoolean( String ) - send in null through string array
-        Assert.IsFalse(Convert.ToBoolean(tsA[0], new TestFormatProvider()), " Got true, expected false");
-
-
+        Assert.False(Convert.ToBoolean(tsA[0], new TestFormatProvider()), " Got true, expected false");
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromByte()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( Byte )
@@ -141,14 +126,12 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < SByteArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(SByteArray[i]);
-            Assert.AreEqual(SByteResults[i], result, " Expected = '" + SByteResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(SByteResults[i], result);
         }
-
         // Adding tests for new methods
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromSByte()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( SByte )
@@ -163,13 +146,11 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < sSByteArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(sSByteArray[i]);
-            Assert.AreEqual(sSByteResults[i], result, " Expected = '" + sSByteResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(sSByteResults[i], result);
         }
-
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromUInt16()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( UInt16 )
@@ -186,14 +167,12 @@ public class Co6053ToBoolean_all
         //// Vanilla Tests
         for (int i = 0; i < UInt3216Array.Length; i++)
         {
-
             Boolean result = Convert.ToBoolean(UInt3216Array[i]);
-            Assert.AreEqual(UInt3216Results[i], result, " Expected = '" + UInt3216Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(UInt3216Results[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromUInt32()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( UInt32 )
@@ -208,13 +187,11 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < UInt3232Array.Length; i++)
         {
             Boolean result = Convert.ToBoolean(UInt3232Array[i]);
-            Assert.AreEqual(UInt3232Results[i], result, " Expected = '" + UInt3232Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(UInt3232Results[i], result);
         }
-
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromUInt64()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( UInt64 )
@@ -229,14 +206,12 @@ public class Co6053ToBoolean_all
         //// Vanilla Tests
         for (int i = 0; i < UInt3264Array.Length; i++)
         {
-
             Boolean result = Convert.ToBoolean(UInt3264Array[i]);
-            Assert.AreEqual(UInt3264Results[i], result, " Expected = '" + UInt3264Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(UInt3264Results[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromBoolean()
     {
         ///////////////////////////////////////////// Boolean Convert.ToBoolean( Boolean )
@@ -251,12 +226,11 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < Boolean3312Array.Length; i++)
         {
             Boolean result = Convert.ToBoolean(Boolean3312Array[i]);
-            Assert.AreEqual(Boolean3312Results[i], result, " Expected = '" + Boolean3312Results[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(Boolean3312Results[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromSingle()
     {
         // Adding tests for new methods
@@ -268,14 +242,13 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < sglArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(sglArray[i]);
-            Assert.AreEqual(sglResults[i], result, " Expected = '" + sglResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(sglResults[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromDouble()
-    { 
+    {
         ///////////////////////////////////////////// [] Boolean Convert.ToBoolean( Double )
 
         Double[] dblArray = { Double.Epsilon, Double.MaxValue, Double.MinValue, Double.NaN, Double.NegativeInfinity, Double.PositiveInfinity, 0d, 0.0, 1.5, -1.5, 1.5e300, -1.7e-500, -1.7e300, -1.7e-320, };
@@ -285,14 +258,13 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < dblArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(dblArray[i]);
-            Assert.AreEqual(dblResults[i], result, " Expected = '" + dblResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(dblResults[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromDecimal()
-    {   
+    {
         ///////////////////////////////////////////// [] Boolean Convert.ToBoolean( Decimal )
 
         Decimal[] decArray = { Decimal.MaxValue, Decimal.MinValue, Decimal.One, Decimal.Zero, 0m, 0.0m, 1.5m, -1.5m, 500.00m, };
@@ -301,61 +273,59 @@ public class Co6053ToBoolean_all
         for (int i = 0; i < decArray.Length; i++)
         {
             Boolean result = Convert.ToBoolean(decArray[i]);
-            Assert.AreEqual(dcmResults[i], result, " Expected = '" + dcmResults[i] + "' ... Received = '" + result + "'.");
+            Assert.Equal(dcmResults[i], result);
         }
-
     }
 
-    [TestMethod]
+    [Fact]
     public static void FromObject()
-    {  
+    {
         /////////////////////////// Boolean Convert.ToBoolean( Object )
 
         //[] ToBoolean( Object ) - obj = null
-        Assert.IsFalse(Convert.ToBoolean((Object)null), " wrong value returned.  expected false");
+        Assert.False(Convert.ToBoolean((Object)null), " wrong value returned.  expected false");
 
         //[] ToBoolean( Object, IFP ) - obj = null
 
         Boolean bTest = Convert.ToBoolean((Object)null, new TestFormatProvider());
-        Assert.IsFalse(bTest, " wrong value returned.  expected false, got " + bTest);
+        Assert.False(bTest, " wrong value returned.  expected false, got " + bTest);
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative1()
     {
         //[] ExceptionTest: ToBoolean( String ) - send in "Blah"
-        Assert.Throws<FormatException>(() => Convert.ToBoolean("Blah"), " Exception not thrown.");
+        Assert.Throws<FormatException>(() => Convert.ToBoolean("Blah"));
         //[] ExceptionTest: ToBoolean( String ) - send in "Blah"
-        Assert.Throws<FormatException>(() => Convert.ToBoolean("Blah", new TestFormatProvider()), " Exception not thrown.");
+        Assert.Throws<FormatException>(() => Convert.ToBoolean("Blah", new TestFormatProvider()));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative3()
     {
         ///////////////////////////////////////////// []Boolean Convert.ToBoolean( DateTime ) - throws
-        Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(DateTime.Now), " No Exception Thrown");
+        Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(DateTime.Now));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative4()
     {
         ////////////////////[] ToBoolean( Object ) - Exception Case (Object that does not implement IConvertible) 
-        Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(new Object()), " No Exception Thrown");
+        Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(new Object()));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative5()
     {
         ///////////////////////////////////////////// []Boolean Convert.ToBoolean( Object, IFormatPRovider )
-        Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(new Object(), new TestFormatProvider()), " No Exception Thrown");
-
+        Assert.Throws<InvalidCastException>(() => Convert.ToBoolean(new Object(), new TestFormatProvider()));
     }
 }
 
 /// <summary>
 /// Helper class to test that the IFormatProvider is being called.
 /// </summary>
-class TestFormatProvider : IFormatProvider, ICustomFormatter
+internal class TestFormatProvider : IFormatProvider, ICustomFormatter
 {
     public object GetFormat(Type formatType)
     {

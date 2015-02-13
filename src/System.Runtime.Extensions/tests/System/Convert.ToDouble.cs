@@ -1,27 +1,16 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToDouble_all.cs
-//
-// Summary:
-// Tests Convert.ToDouble().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6059ToDouble_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6059ToDouble_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
-
             ///////////////////////////////////////////// Double Convert.ToDouble( Single )
 
             //[] ToDouble(Single) - Vanilla Cases (Single.MaxValue, Single.MinValue,((Single) 0.0f ))
@@ -35,7 +24,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +40,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +56,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +72,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ///////////////////////////////////////////// [] Double Convert.ToDouble( Boolean )
@@ -96,7 +85,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +101,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -128,9 +117,8 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
-
             }
             ///////////////////////////////////////////// [] Double Convert.ToDouble( String, IFormatProvider )
 
@@ -142,9 +130,8 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
-
             }
             ////////////////////////////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////// Double Convert.ToDouble( Byte )
@@ -159,7 +146,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +162,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -191,7 +178,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -207,7 +194,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -223,7 +210,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -240,50 +227,48 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Double result = Convert.ToDouble(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
             //[] ToDouble( Object ) - obj = null
             {
                 Double bTest = Convert.ToDouble((Object)null);
-                Assert.AreEqual((Double)0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal((Double)0, bTest);
             }
 
             //[] ToDouble( Object, IFP ) - obj = null
             {
                 Double bTest = Convert.ToDouble((Object)null, new TestFormatProvider());
-                Assert.AreEqual((Double)0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal((Double)0, bTest);
             }
-
         }
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative()
         {
             // Exception Test Cases
             //[] ToDouble(String) - Exception Cases (null,"123xyz")
-            Assert.Throws<FormatException>(() => { Double result = Convert.ToDouble("123xyz"); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MaxValue.ToString()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MinValue.ToString()); }, "Exception expected.");
-
+            Assert.Throws<FormatException>(() => { Double result = Convert.ToDouble("123xyz"); });
+            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MaxValue.ToString()); });
+            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MinValue.ToString()); });
 
             // Exception Test Cases
             //[] ToDouble(String) - Exception Cases (null,"123xyz")
-            Assert.Throws<FormatException>(() => { Double result = Convert.ToDouble("123xyz", new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MaxValue.ToString(), new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MinValue.ToString(), new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble("1.7976931348623155E309", new TestFormatProvider()); }, "Exception expected.");
-            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble("-1.7976931348623155E309", new TestFormatProvider()); }, "Exception expected.");
+            Assert.Throws<FormatException>(() => { Double result = Convert.ToDouble("123xyz", new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble(Double.MinValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble("1.7976931348623155E309", new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Double result = Convert.ToDouble("-1.7976931348623155E309", new TestFormatProvider()); });
 
             ///////////////////////////////////////////// Double Convert.ToDouble( Object )
             //[] ToDouble( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Double bTest = Convert.ToDouble(new Object()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Double bTest = Convert.ToDouble(new Object()); });
 
             ///////////////////////////////////////////// []Double Convert.ToDouble( Object, IFormatProvider )
-            Assert.Throws<InvalidCastException>(() => { Double bTest = Convert.ToDouble(new Object(), new TestFormatProvider()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Double bTest = Convert.ToDouble(new Object(), new TestFormatProvider()); });
 
             ///////////////////////////////////////////// []Double Convert.ToDouble( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Double bTest = Convert.ToDouble(DateTime.Now); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Double bTest = Convert.ToDouble(DateTime.Now); });
             ////////////////////////////////////////////////////////////////////////////////////////
         }
     }

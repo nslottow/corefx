@@ -1,24 +1,14 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToSingle_all.cs
-//
-// Summary:
-// Tests Convert.ToSingle().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6065ToSingle_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6065ToSingle_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
             ///////////////////////////////////////////// Single Convert.ToSingle( Double )
@@ -33,7 +23,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +39,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +55,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -81,11 +71,10 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ///////////////////////////////////////////// []Single Convert.ToSingle( Boolean )
-
 
             // Setup Int16 Test
             {
@@ -95,7 +84,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +100,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +117,7 @@ namespace Test
                     Single result = Convert.ToSingle(testValues[i]);
                     // We are converting them to their string representation because if we compare Single.MaxValue 
                     // to one parsed from its string representation, it is not equal.
-                    Assert.AreEqual(expectedValues[i].ToString(), result.ToString(), " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i].ToString(), result.ToString());
                 }
             }
             ///////////////////////////////////////////// []Single Convert.ToSingle( String, IFormatPRovider )
@@ -142,7 +131,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i].ToString(), result.ToString(), " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i].ToString(), result.ToString());
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -158,7 +147,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -174,7 +163,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -190,7 +179,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -206,7 +195,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -223,7 +212,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -240,45 +229,44 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Single result = Convert.ToSingle(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
             //[] ToSingle( Object ) - obj = null
             {
                 Single bTest = Convert.ToSingle((Object)null);
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
-
+                Assert.Equal(0, bTest);
             }
             //[] ToSingle( Object, IFP ) - obj = null
             {
                 Single bTest = Convert.ToSingle((Object)null, new TestFormatProvider());
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative()
         {
             // Exception Test Cases
             //[] ToSingle(String) - Exception Cases (null,"1f2d")
-            Assert.Throws<OverflowException>(() => { Single result = Convert.ToSingle(Double.MaxValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { Single result = Convert.ToSingle(Double.MinValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<FormatException>(() => { Single result = Convert.ToSingle("1f2d"); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Single result = Convert.ToSingle(Double.MaxValue.ToString()); });
+            Assert.Throws<OverflowException>(() => { Single result = Convert.ToSingle(Double.MinValue.ToString()); });
+            Assert.Throws<FormatException>(() => { Single result = Convert.ToSingle("1f2d"); });
 
             // Exception Test Cases
             //[] ToSingle(String) - Exception Cases (null,"1f2d")
-            Assert.Throws<FormatException>(() => { Single result = Convert.ToSingle("1f2d", new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<FormatException>(() => { Single result = Convert.ToSingle("1f2d", new TestFormatProvider()); });
 
             ///////////////////////////////////////////// Single Convert.ToSingle( Object )
             //[] ToSingle( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Single bTest = Convert.ToSingle(new Object()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Single bTest = Convert.ToSingle(new Object()); });
 
             ///////////////////////////////////////////// []Single Convert.ToSingle( Object, IFormatPRovider )
-            Assert.Throws<InvalidCastException>(() => { Single bTest = Convert.ToSingle(new Object(), new TestFormatProvider()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Single bTest = Convert.ToSingle(new Object(), new TestFormatProvider()); });
 
             ///////////////////////////////////////////// []Single Convert.ToSingle( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Single bTest = Convert.ToSingle(DateTime.Now); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Single bTest = Convert.ToSingle(DateTime.Now); });
         }
     }
 }

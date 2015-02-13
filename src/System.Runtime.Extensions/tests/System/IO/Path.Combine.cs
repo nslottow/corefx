@@ -1,53 +1,55 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.IO;
-using CoreFXTestLibrary;
+using Xunit;
 
 namespace PathTests
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class CombineTests
     {
-        static String separator = "\\"; // Was Path.DirectorySeparatorChar
-        [TestMethod]
+        private static String s_separator = "\\"; // Was Path.DirectorySeparatorChar
+        [Fact]
         public static void PathIsNull()
         {
             VerifyException<ArgumentNullException>(null);
         }
 
-        [TestMethod]
+        [Fact]
         public static void VerifyEmptyPath()
         {
             //paths is empty
             Verify(new String[0]);
         }
 
-        [TestMethod]
+        [Fact]
         public static void VerifyPath1Element()
         {
             //paths has 1 element
             Verify(new String[] { "abc" });
         }
 
-        [TestMethod]
+        [Fact]
         public static void VerifyPath2Elements()
         {
             //paths has 2 elements
             Verify(new String[] { "abc", "def" });
         }
 
-        [TestMethod]
+        [Fact]
         public static void VerifyPathManyElements()
         {
             //paths has many elements
-            Verify(new String[] { "abc" + separator + "def", "def", "ghi", "jkl", "mno" });
+            Verify(new String[] { "abc" + s_separator + "def", "def", "ghi", "jkl", "mno" });
         }
-        [TestMethod]
+        [Fact]
         public static void PathIsNullWihtoutRootedAfterArgumentNull()
         {
             //any path is null without rooted after (ANE)
             CommonCasesException<ArgumentNullException>(null);
         }
-        [TestMethod]
+        [Fact]
         public static void ContainsInvalidCharWithoutRootedAfterArgumentNull()
         {
             //any path contains invalid character without rooted after (AE)
@@ -60,35 +62,35 @@ namespace PathTests
             CommonCasesException<ArgumentException>("ab\0cd");
             CommonCasesException<ArgumentException>("ab\tcd");
         }
-        [TestMethod]
+        [Fact]
         public static void ContainsInvalidCharWithRootedAfterArgumentNull()
         {
             //any path contains invalid character with rooted after (AE)
-            CommonCasesException<ArgumentException>("ab\"cd", separator + "abc");
-            CommonCasesException<ArgumentException>("ab<cd", separator + "abc");
-            CommonCasesException<ArgumentException>("ab>cd", separator + "abc");
-            CommonCasesException<ArgumentException>("ab|cd", separator + "abc");
-            CommonCasesException<ArgumentException>("ab\bcd", separator + "abc");
-            CommonCasesException<ArgumentException>("ab\0cd", separator + "abc");
-            CommonCasesException<ArgumentException>("ab\tcd", separator + "abc");
+            CommonCasesException<ArgumentException>("ab\"cd", s_separator + "abc");
+            CommonCasesException<ArgumentException>("ab<cd", s_separator + "abc");
+            CommonCasesException<ArgumentException>("ab>cd", s_separator + "abc");
+            CommonCasesException<ArgumentException>("ab|cd", s_separator + "abc");
+            CommonCasesException<ArgumentException>("ab\bcd", s_separator + "abc");
+            CommonCasesException<ArgumentException>("ab\0cd", s_separator + "abc");
+            CommonCasesException<ArgumentException>("ab\tcd", s_separator + "abc");
         }
 
-        [TestMethod]
+        [Fact]
         public static void PathIsRooted()
         {
             //any path is rooted (starts with \, \\, A:)
-            CommonCases(separator + "abc");
-            CommonCases(separator + separator + "abc");
+            CommonCases(s_separator + "abc");
+            CommonCases(s_separator + s_separator + "abc");
         }
 
-        [TestMethod]
+        [Fact]
         public static void PathIsEmptyCommonCases()
         {
             //any path is empty (skipped)
             CommonCases("");
         }
 
-        [TestMethod]
+        [Fact]
         public static void PathIsEmptyMultipleArguments()
         {
             //all paths are empty
@@ -99,14 +101,14 @@ namespace PathTests
             Verify(new String[] { "", "", "", "", "" });
         }
 
-        [TestMethod]
+        [Fact]
         public static void PathIsSingleElement()
         {
             //any path is single element
             CommonCases("abc");
         }
 
-        [TestMethod]
+        [Fact]
         public static void PathIsMultipleElements()
         {
             //any path is multiple element
@@ -150,8 +152,7 @@ namespace PathTests
             //verify passed as array case
             rVal = Path.Combine(paths);
 
-            Assert.AreEqual(expected, rVal,
-                String.Format("Array:: Wrong result, Expected: {0} Got: {1}", expected, rVal));
+            Assert.Equal(expected, rVal);
 
             //verify passed as elements case
             switch (paths.Length)
@@ -175,11 +176,11 @@ namespace PathTests
                     rVal = Path.Combine(paths[0], paths[1], paths[2], paths[3], paths[4]);
                     break;
                 default:
-                    Assert.Fail(String.Format("Test doesn't cover case with {0} items passed seperately, add it.", paths.Length));
+                    Assert.True(false, String.Format("Test doesn't cover case with {0} items passed seperately, add it.", paths.Length));
                     break;
             }
 
-            Assert.AreEqual(expected, rVal, String.Format("Elements:: Wrong result, Expected: {0} Got: {1}", expected, rVal));
+            Assert.Equal(expected, rVal);
         }
 
         public static void CommonCases(string testing)
@@ -229,8 +230,7 @@ namespace PathTests
                 Logger.LogInformation("");
             }
 
-            Assert.Throws<T>(() => { rVal = Path.Combine(paths); },
-                "Array:: Expected Exception not thrown");
+            Assert.Throws<T>(() => { rVal = Path.Combine(paths); });
 
             //verify passed as elements case
             if (paths != null)
@@ -260,11 +260,11 @@ namespace PathTests
                                 rVal = Path.Combine(paths[0], paths[1], paths[2], paths[3], paths[4]);
                                 break;
                         }
-                    }, "Expected exception not thrown");
+                    });
                 }
                 else
                 {
-                    Assert.Fail(String.Format("Test doesn't cover case with {0} items passed seperately, add it.", paths.Length));
+                    Assert.True(false, String.Format("Test doesn't cover case with {0} items passed seperately, add it.", paths.Length));
                 }
             }
         }
@@ -292,7 +292,7 @@ namespace PathTests
             VerifyException<T>(new string[] { testing, "abc", "def", "ghi", "jkl" });
         }
 
-        private static void CommonCasesException<T>(string testing, string testing2) where T :Exception
+        private static void CommonCasesException<T>(string testing, string testing2) where T : Exception
         {
             VerifyException<T>(new string[] { testing, testing2 });
 

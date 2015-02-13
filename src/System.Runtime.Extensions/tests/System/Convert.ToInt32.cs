@@ -1,25 +1,16 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToInt32_all.cs
-//
-// Summary:
-// Tests Convert.ToInt32().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6061ToInt32_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.ArgumentException))]
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.FormatException))]
+
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6061ToInt32_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
             ///////////////////////////////////////////// Int32 Convert.ToInt32( Boolean )
@@ -34,7 +25,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +42,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -67,8 +58,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -84,7 +74,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +90,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +106,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +122,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -148,11 +138,10 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ///////////////////////////////////////////// [] Int32 Convert.ToInt32( String, IFormatProvider )
-
 
             // Setup String Test
 
@@ -163,8 +152,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +168,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -190,12 +178,11 @@ namespace Test
 
             // Setup String, Int32 Test
             {
-
                 String[] dummy = { null, };
-                Assert.AreEqual(0, Convert.ToInt32(dummy[0], 10), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt32(dummy[0], 2), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt32(dummy[0], 8), "Should be equal");
-                Assert.AreEqual(0, Convert.ToInt32(dummy[0], 16), "Should be equal");
+                Assert.Equal(0, Convert.ToInt32(dummy[0], 10));
+                Assert.Equal(0, Convert.ToInt32(dummy[0], 2));
+                Assert.Equal(0, Convert.ToInt32(dummy[0], 8));
+                Assert.Equal(0, Convert.ToInt32(dummy[0], 16));
             }
 
             {
@@ -207,7 +194,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i], testBases[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -224,7 +211,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -241,7 +228,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -258,7 +245,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -269,11 +256,11 @@ namespace Test
 
             // Setup UInt64 Test
             {
-                UInt64[] testValues = { 
+                UInt64[] testValues = {
       100,
       0,
   };
-                Int32[] expectedValues = { 
+                Int32[] expectedValues = {
        100 ,
        0 ,
   };
@@ -281,8 +268,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
-
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -298,25 +284,24 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Int32 result = Convert.ToInt32(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
             //[] ToInt32( Object ) - obj = null
             {
                 Int32 bTest = Convert.ToInt32((Object)null);
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
 
             //[] ToInt32( Object, IFP ) - obj = null
             {
                 Int32 bTest = Convert.ToInt32((Object)null, new TestFormatProvider());
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected false, got " + bTest);
+                Assert.Equal(0, bTest);
             }
-
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative()
         {
             {
@@ -325,7 +310,7 @@ namespace Test
                 Double[] errorValues = { Double.MaxValue, Double.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); });
                 }
             }
             {
@@ -335,7 +320,7 @@ namespace Test
 
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); });
                 }
             }
             {
@@ -345,7 +330,7 @@ namespace Test
                 Int64[] errorValues = { Int64.MaxValue, Int64.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); });
                 }
             }
             {
@@ -354,29 +339,28 @@ namespace Test
                 Decimal[] errorValues = { Decimal.MaxValue, Decimal.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(errorValues[i]); });
                 }
             }
 
             // Exception Test Cases
             //[] ToInt32(String) - Exception Cases (Int64.MaxValue.ToString(),Int64.MinValue.ToString(),null,"abba")
-            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<FormatException>(() => { Int32 result = Convert.ToInt32("abba"); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString()); });
+            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString()); });
+            Assert.Throws<FormatException>(() => { Int32 result = Convert.ToInt32("abba"); });
 
             // Exception Test Cases
             //[] ToInt32(String) - Exception Cases (Int64.MaxValue.ToString(),Int64.MinValue.ToString(),null,"abba")
 
             // Exception Test Cases
             //[] ToInt32(String) - Exception Cases (Int64.MaxValue.ToString(),Int64.MinValue.ToString(),null,"abba")
-            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString(), new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString(), new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<FormatException>(() => { Int32 result = Convert.ToInt32("abba", new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(Int64.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<FormatException>(() => { Int32 result = Convert.ToInt32("abba", new TestFormatProvider()); });
 
             // Exception Test Cases
             //[] ToInt32(String,Int32) - Exception Cases {(null,2),("12",3),("11",5),("abba",8),("ffffffffffffffffffff",16)}
             {
-
                 String[] expectedExceptions = { "System.FormatException", "System.ArgumentException", "System.ArgumentException", "System.ArgumentException", "System.FormatException", "System.ArgumentException", "System.OverflowException", "System.OverflowException", "System.OverflowException", "System.OverflowException", "System.OverflowException", };
                 String[] errorValues = { "12", "10", "11", "abba", "ffffffffffffffffffff", "-ab", "2147483648", "-2147483649", "111111111111111111111111111111111", "1FFFFffff", "777777777777", };
                 Int32[] errorBases = { 2, -1, 3, 0, 8, 16, 10, 10, 2, 16, 8, };
@@ -385,33 +369,32 @@ namespace Test
                     try
                     {
                         Int32 result = Convert.ToInt32(errorValues[i], errorBases[i]);
-                        Assert.Fail("Exception expected: " + expectedExceptions[i]);
+                        Assert.True(false, "Exception expected: " + expectedExceptions[i]);
                     }
                     catch (Exception e)
                     {
-                        Assert.IsTrue(e.GetType().FullName.Equals(expectedExceptions[i]),
-                            " Wrong Exception Thrown. Expected" + expectedExceptions[i] + ", Actual: " + e.GetType().FullName);
+                        Assert.True(e.GetType().FullName.Equals(expectedExceptions[i]), " Wrong Exception Thrown. Expected" + expectedExceptions[i] + ", Actual: " + e.GetType().FullName);
                     }
                 }
             }
 
             // Exception Test Cases
             //[] ToInt32(UInt32) - Exception Cases (UInt32.MaxValue)
-            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(UInt32.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(UInt32.MaxValue); });
 
             // Exception Test Cases
             //[] ToInt32(UInt64) - Exception Cases (UInt64.MaxValue)
-            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(UInt64.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Int32 result = Convert.ToInt32(UInt64.MaxValue); });
 
             ///////////////////////////////////////////// Int32 Convert.ToInt32( Object )
             //[] ToInt32( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Int32 bTest = Convert.ToInt32(new Object()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int32 bTest = Convert.ToInt32(new Object()); });
 
             ///////////////////////////////////////////// []Int32 Convert.ToInt32( Object, IFOrmatProvider )
-            Assert.Throws<InvalidCastException>(() => { Int32 bTest = Convert.ToInt32(new Object(), new TestFormatProvider()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int32 bTest = Convert.ToInt32(new Object(), new TestFormatProvider()); });
 
             ///////////////////////////////////////////// []Int32 Convert.ToInt32( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Int32 bTest = Convert.ToInt32(DateTime.Now); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { Int32 bTest = Convert.ToInt32(DateTime.Now); });
         }
     }
 }

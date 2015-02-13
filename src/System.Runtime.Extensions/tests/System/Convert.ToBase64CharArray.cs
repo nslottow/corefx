@@ -1,22 +1,12 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToBase64CharArray_btArr_ii_chArr_i.cs
-//
-// Summary:
-// Tests Convert.ToBase64CharArray(byte[], int, int).
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co8641ToBase64CharArray_btArr_ii_chArr_i.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
-using System;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-[ContractsRequired("System.Runtime, System.Runtime.Extensions")]
+using System;
+using Xunit;
+
 public class Co8641ToBase64CharArray_btArr_ii_chArr_i
 {
-    [TestMethod]
+    [Fact]
     public static void runTest()
     {
         /////////////////////////  START TESTS ////////////////////////////
@@ -45,7 +35,6 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
                        characters with particular significance to SMTP (e.g., ".", CR, LF)
                        and to the multipart boundary delimiters defined in RFC 2046 (e.g.,
                        "-").
-
 
                             Table 1: The Base64 Alphabet
 
@@ -76,8 +65,8 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
         chars = new Char[4];
 
         int returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, 0);
-        Assert.AreEqual(str1.Length, returnValue, "Err_87345sdg! Unexpected returned result");
-        Assert.AreEqual(str1, new String(chars), "Err_87345sdg! Unexpected returned result");
+        Assert.Equal(str1.Length, returnValue);
+        Assert.Equal(str1, new String(chars));
 
         //[]Not reading the whole string
         str1 = "test";
@@ -85,8 +74,8 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
         bits = Convert.FromBase64CharArray(chars, 0, chars.Length);
         chars = new Char[4];
         returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length - 1, chars, 0);
-        Assert.AreEqual(str1.Length, returnValue, "Err_87345sdg! Unexpected returned result, " + returnValue);
-        Assert.AreEqual((new String(chars)).Substring(0, 3), str1.Substring(0, 3), "Err_87345sdg! Unexpected returned result, " + new String(chars));
+        Assert.Equal(str1.Length, returnValue);
+        Assert.Equal((new String(chars)).Substring(0, 3), str1.Substring(0, 3));
 
         // NDPWhidbey bug #20933 - short input array may throw exception
         char[] temp = new char[4];
@@ -103,30 +92,30 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
         int c = 0;
         // Convert first half of the byte array, write to first half of char array
         c = Convert.ToBase64CharArray(bytes, 0, 3, chars, 0);
-        Assert.AreEqual(4, c, "Err_759yir! Wrong return value.");
-        Assert.AreEqual("AAEC....", new String(chars), "Err_162kka! Wrong return value");
+        Assert.Equal(4, c);
+        Assert.Equal("AAEC....", new String(chars));
 
         // Convert second half of the byte array, write to second half of char array.
         c = Convert.ToBase64CharArray(bytes, 3, 3, chars, 4);
-        Assert.AreEqual(4, c, "Err_320kwy! Wrong return value.");
-        Assert.AreEqual("AAECAwQF", new String(chars), "Err_661syq! Wrong return value");
+        Assert.Equal(4, c);
+        Assert.Equal("AAECAwQF", new String(chars));
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTest_Negative()
     {
         int returnValue;
         //[] parms - if Byte[] is null
         byte[] bits = null;
         Char[] chars = new Char[1];
-        Assert.Throws<ArgumentNullException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, 1, chars, 0), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentNullException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, 1, chars, 0));
 
         //[] parms - if Char[] is null
         string str1 = "test";
         chars = str1.ToCharArray();
         bits = Convert.FromBase64CharArray(chars, 0, chars.Length);
         chars = null;
-        Assert.Throws<ArgumentNullException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, 0), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentNullException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, 0));
 
         //[] parms - int parms
 
@@ -135,19 +124,19 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
         bits = Convert.FromBase64CharArray(chars, 0, chars.Length);
         chars = new Char[4];
 
-        Int32[] negativeNumbers = new Int32[] 
-            { 
-                -580211910, -1301763964, -1114274334, -484101405, -234109782, -1945711799, -598646168, 
-                -1589786299, -19199566, -895444420, -1207731394, -1382096580, -1170653708, -836346455, -1866732604, 
+        Int32[] negativeNumbers = new Int32[]
+            {
+                -580211910, -1301763964, -1114274334, -484101405, -234109782, -1945711799, -598646168,
+                -1589786299, -19199566, -895444420, -1207731394, -1382096580, -1170653708, -836346455, -1866732604,
                 -1601915819, -1518260224, -1983761395, -1706826589, -255553951, Int32.MinValue
             };
 
         for (int i = 0; i < negativeNumbers.Length; i++)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, negativeNumbers[i], bits.Length, chars, 0), "Err_3475sdg! No Exception returned");
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, negativeNumbers[i], chars, 0), "Err_3475sdg! No Exception returned");
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, negativeNumbers[i], bits.Length, chars, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, negativeNumbers[i], chars, 0));
             // offsetOut is negative
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, negativeNumbers[i]), "Err_3475sdg! No Exception returned");
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, negativeNumbers[i]));
         }
 
         str1 = "test";
@@ -155,19 +144,19 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
         bits = Convert.FromBase64CharArray(chars, 0, chars.Length);
         chars = new Char[4];
 
-        Int32[] positiveNumbers = new Int32[] 
+        Int32[] positiveNumbers = new Int32[]
             {
                 987060368, 2051597101, 456045065, 638925134, 81065981, 1338449972, 1179281288, 77476406, 1679264303, 1191885711,
-                1743940135, 873187169, 950191869, 179426799, 1032089466, 813931898, 2109084534, 204677719, 356595643, 1311812948, 
+                1743940135, 873187169, 950191869, 179426799, 1032089466, 813931898, 2109084534, 204677719, 356595643, 1311812948,
                 100, Int32.MaxValue, (bits.Length + 1)
             };
 
         for (int i = 0; i < positiveNumbers.Length; i++)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, positiveNumbers[i], chars, 0), "Err_3475sdg! No Exception returned");
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, positiveNumbers[i], bits.Length, chars, 0), "Err_3475sdg! No Exception returned");
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, positiveNumbers[i], chars, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, positiveNumbers[i], bits.Length, chars, 0));
             // offsetOut is too large
-            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, positiveNumbers[i]), "Err_3475sdg! No Exception returned");
+            Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, positiveNumbers[i]));
         }
 
         str1 = "test";
@@ -175,13 +164,13 @@ public class Co8641ToBase64CharArray_btArr_ii_chArr_i
         bits = Convert.FromBase64CharArray(chars, 0, chars.Length);
         chars = new Char[4];
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 1, bits.Length, chars, 0), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 1, bits.Length, chars, 0));
 
         // offsetOut is invalid
         str1 = "test";
         chars = str1.ToCharArray();
         bits = Convert.FromBase64CharArray(chars, 0, chars.Length);
         chars = new Char[4];
-        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, 1), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => returnValue = Convert.ToBase64CharArray(bits, 0, bits.Length, chars, 1));
     }
 }

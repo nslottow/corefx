@@ -1,22 +1,12 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToBase64String_all.cs
-//
-// Summary:
-// Tests Convert.ToBase64String().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co8642ToBase64String_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
-using System;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-[ContractsRequired("System.Runtime, System.Runtime.Extensions")]
+using System;
+using Xunit;
+
 public class Co8642ToBase64String_all
 {
-    [TestMethod]
+    [Fact]
     public static void runTest()
     {
         String str1;
@@ -49,7 +39,6 @@ public class Co8642ToBase64String_all
                        and to the multipart boundary delimiters defined in RFC 2046 (e.g.,
                        "-").
 
-
                             Table 1: The Base64 Alphabet
 
              Value Encoding  Value Encoding  Value Encoding  Value Encoding
@@ -76,7 +65,7 @@ public class Co8642ToBase64String_all
 
         returnValue = Convert.FromBase64String(str1);
 
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_87345sdg! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //[] made up byte array - The system will add up 0's to make multiple of 24 bits
 
@@ -94,86 +83,83 @@ public class Co8642ToBase64String_all
         // B       Q      Y      H      C     A      =       =
 
         str1 = "BQYHCA==";
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_3845sdg! Unexpected returned result, " + Convert.ToBase64String(returnValue));
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //[]we will do some combinations of A's to make sure that we can roundtrip correctly
         //It is interesting to note how this encoding system will distinguish between A and =
         str1 = "AAAA";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_23745w34ts! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         str1 = "AAAAAAAA";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_874325gd! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //[]Now, we will test ToBase64String(Byte[], Int32, Int32) - vanila
 
         str1 = "test";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue, 0, 3), "Err_87345sdg! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue, 0, 3));
 
         //[]parm, 0, 0
         str1 = "test";
         returnValue = Convert.FromBase64String(str1);
         str1 = Convert.ToBase64String(returnValue, 0, 0);
-        Assert.AreEqual(String.Empty, str1, "Err_8934sd! Unexpected returned result");
+        Assert.Equal(String.Empty, str1);
     }
 
-    [TestMethod]
+    [Fact]
     public static void runTests_Negative()
     {
-
         //[] parms - if Byte[] is null
         byte[] returnValue = null;
         string str1;
 
-        Assert.Throws<ArgumentNullException>(() => str1 = Convert.ToBase64String(returnValue), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentNullException>(() => str1 = Convert.ToBase64String(returnValue));
 
         //[] parms - if Byte[] is null
         returnValue = null;
-        Assert.Throws<ArgumentNullException>(() => str1 = Convert.ToBase64String(returnValue, 0, 0), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentNullException>(() => str1 = Convert.ToBase64String(returnValue, 0, 0));
 
         //[] parms - int parms
         str1 = "test";
         returnValue = Convert.FromBase64String(str1);
-        Int32[] negativeNumbers = new Int32[] 
-            { 
-                -580211910, -1301763964, -1114274334, -484101405, -234109782, -1945711799, -598646168, 
-                -1589786299, -19199566, -895444420, -1207731394, -1382096580, -1170653708, -836346455, -1866732604, 
+        Int32[] negativeNumbers = new Int32[]
+            {
+                -580211910, -1301763964, -1114274334, -484101405, -234109782, -1945711799, -598646168,
+                -1589786299, -19199566, -895444420, -1207731394, -1382096580, -1170653708, -836346455, -1866732604,
                 -1601915819, -1518260224, -1983761395, -1706826589, -255553951, Int32.MinValue
             };
         for (int i = 0; i < negativeNumbers.Length; i++)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, negativeNumbers[i], 3), "Exception expected.");
-            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 1, negativeNumbers[i]), "Exception expected.");
+            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, negativeNumbers[i], 3));
+            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 1, negativeNumbers[i]));
         }
 
-        Int32[] positiveNumbers = new Int32[] 
+        Int32[] positiveNumbers = new Int32[]
             {
                 987060368, 2051597101, 456045065, 638925134, 81065981, 1338449972, 1179281288, 74776406, 1679264303, 1191885711,
-                1743940135, 873187169, 950191869, 179426799, 1032089466, 813931898, 2109084534, 204677719, 356595643, 1311812948, 
+                1743940135, 873187169, 950191869, 179426799, 1032089466, 813931898, 2109084534, 204677719, 356595643, 1311812948,
                 Int32.MaxValue
             };
 
         for (int i = 0; i < positiveNumbers.Length; i++)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, positiveNumbers[i], 3), "Err_3475sdg! No Exception returned for i: " + i);
-            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 1, positiveNumbers[i]), "Err_3475sdg! No Exception returned for i: " + i);
+            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, positiveNumbers[i], 3));
+            Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 1, positiveNumbers[i]));
         }
 
         str1 = "test";
         returnValue = Convert.FromBase64String(str1);
-        Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 0, 4), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 0, 4));
 
         str1 = "test";
         returnValue = Convert.FromBase64String(str1);
-        Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 1, 3), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 1, 3));
 
         str1 = "test";
         returnValue = Convert.FromBase64String(str1);
-        Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 0, -1), "Err_3475sdg! No Exception returned");
-
+        Assert.Throws<ArgumentOutOfRangeException>(() => str1 = Convert.ToBase64String(returnValue, 0, -1));
     }
 }
-
 

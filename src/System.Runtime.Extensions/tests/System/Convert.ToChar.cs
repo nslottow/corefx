@@ -1,24 +1,14 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToChar_all.cs
-//
-// Summary:
-// Tests Convert.ToChar().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6055ToChar_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6055ToChar_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
             ///////////////////////////////////////////// Char Convert.ToChar( Int32 )
@@ -33,7 +23,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -50,7 +40,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ///////////////////////////////////////////// Char Convert.ToChar( String, IFormatPRovider ) - IFP is ignored here
@@ -65,7 +55,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -75,14 +65,13 @@ namespace Test
 
             // Setup Int16 Test
             {
-
                 Int16[] testValues = { Int16.MaxValue, 0, };
                 Char[] expectedValues = { (Char)Int16.MaxValue, (Char)0, };
                 // Vanila Test Cases
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -99,7 +88,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -115,7 +104,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -132,10 +121,9 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
-
 
             ///////////////////////////////////////////// Char Convert.ToChar( Char )
 
@@ -143,7 +131,6 @@ namespace Test
 
             // Setup Char Test
             {
-
                 Char[] testValues = { Char.MaxValue, Char.MinValue, 'b' };
                 Char[] expectedValues = { Char.MaxValue, Char.MinValue, 'b' };
 
@@ -151,7 +138,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -168,7 +155,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -179,7 +166,6 @@ namespace Test
             // Setup Char Test
 
             {
-
                 Int64[] testValues = { 0, 98, UInt16.MaxValue };
                 Char[] expectedValues = { (Char)0, 'b', Char.MaxValue };
 
@@ -187,7 +173,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -197,7 +183,6 @@ namespace Test
 
             // Setup Char Test
             {
-
                 UInt64[] testValues = { 0, 98, UInt16.MaxValue };
                 Char[] expectedValues = { (Char)0, 'b', Char.MaxValue };
 
@@ -205,7 +190,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     Char result = Convert.ToChar(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -213,81 +198,80 @@ namespace Test
             //[] ToChar( Object ) - obj = null
             {
                 Char bTest = Convert.ToChar((Object)null);
-                Assert.AreEqual('\0', bTest, " wrong value returned.  expected '\\0', got " + bTest);
+                Assert.Equal('\0', bTest);
             }
             ///////////////////////////////////////////// []Char Convert.ToChar( Object, IFormatProvider )
 
             //[] ToChar( Object, IFP ) - obj = null
             {
                 Char bTest = Convert.ToChar((Object)null, new TestFormatProvider());
-                Assert.AreEqual('\0', bTest, " wrong value returned.  expected '\\0', got " + bTest);
+                Assert.Equal('\0', bTest);
             }
-
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTest_Negative()
         {
             // Exception Test Case
             //[] ToChar(Int32) - Exception Cases (Int32.MaxValue)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(Int32.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(Int32.MaxValue); });
 
             // Exception Test Case
             //[] ToChar(Int32) - Exception Cases (-1000)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(-1000); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(-1000); });
             // Exception Test Case
             //[] ToChar(String) - Exception Cases (null)
-            Assert.Throws<ArgumentNullException>(() => { Char result = Convert.ToChar(null); }, " Exception not Thrown!");
+            Assert.Throws<ArgumentNullException>(() => { Char result = Convert.ToChar(null); });
 
             // Exception Test Case
             //[] ToChar(String) - Exception Cases ("")
-            Assert.Throws<FormatException>(() => { Char result = Convert.ToChar(""); }, " Exception not Thrown!");// Exception Test Case
+            Assert.Throws<FormatException>(() => { Char result = Convert.ToChar(""); });// Exception Test Case
 
             //[] ToChar(String) - Exception Cases (null)
-            Assert.Throws<ArgumentNullException>(() => { Char result = Convert.ToChar(null, new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<ArgumentNullException>(() => { Char result = Convert.ToChar(null, new TestFormatProvider()); });
 
             // Exception Test Case
             //[] ToChar(String) - Exception Cases ("")
-            Assert.Throws<FormatException>(() => { Char result = Convert.ToChar("", new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<FormatException>(() => { Char result = Convert.ToChar("ab", new TestFormatProvider()); }, " Exception not Thrown!");// Exception Test Case
+            Assert.Throws<FormatException>(() => { Char result = Convert.ToChar("", new TestFormatProvider()); });
+            Assert.Throws<FormatException>(() => { Char result = Convert.ToChar("ab", new TestFormatProvider()); });// Exception Test Case
 
             //[] ToChar(Int16) - Exception Cases (Int16.MinValue)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(Int16.MinValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(Int16.MinValue); });
 
             // Exception Test Case
             //[] ToChar(Int16) - Exception Cases (-1000)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((Int16)(-1000)); }, " Exception not Thrown!");// Exception Test Case
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((Int16)(-1000)); });// Exception Test Case
 
             //[] ToChar(SByte) - Exception Cases (SByte.MinValue)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(SByte.MinValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(SByte.MinValue); });
 
             // Exception Test Case
             //[] ToChar(SByte) - Exception Cases (-100)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((SByte)(-100)); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((SByte)(-100)); });
 
             // Exception Test Case
             //[] ToChar(SByte) - Exception Cases (-1)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((SByte)(-1)); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((SByte)(-1)); });
 
             // Exception Test Case
             //[] ToChar(UInt32) - Exception Cases (UInt32.MaxValue)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(UInt32.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(UInt32.MaxValue); });
 
             // Exception Test Case
             //[] ToChar(UInt32) - Exception Cases (UInt32.MaxValue)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(UInt32.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar(UInt32.MaxValue); });
 
             // Exception Test Case
             //[] ToChar(Int64) - Exception Cases (UInt16.MaxValue + 1)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((Int64)(UInt16.MaxValue + 1)); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((Int64)(UInt16.MaxValue + 1)); });
 
             // Exception Test Case
             //[] ToChar(Int64) - Exception Cases (-1)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((Int64)(-1)); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((Int64)(-1)); });
 
             // Exception Test Case
             //[] ToChar(UInt64) - Exception Cases (UInt16.MaxValue + 1)
-            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((UInt64)(UInt16.MaxValue + 1)); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { Char result = Convert.ToChar((UInt64)(UInt16.MaxValue + 1)); });
 
             ///////////////////////////////////////////// Char Convert.ToChar( Single )
 
@@ -297,11 +281,11 @@ namespace Test
 
             {
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar((Single)(0)); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar((Single)(0)); });
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Single.MinValue); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Single.MinValue); });
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Single.MaxValue); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Single.MaxValue); });
             }
 
             ///////////////////////////////////////////// Char Convert.ToChar( Double )
@@ -311,14 +295,13 @@ namespace Test
             // Setup Char Test
             {
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar((Double)(0)); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar((Double)(0)); });
 
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Double.MinValue); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Double.MinValue); });
 
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Double.MaxValue); }, " Exception not Thrown!");
-
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Double.MaxValue); });
             }
 
             ///////////////////////////////////////////// Char Convert.ToChar( Decimal )
@@ -327,21 +310,21 @@ namespace Test
             // Setup Char Test
             {
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar((Decimal)(0)); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar((Decimal)(0)); });
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Decimal.MinValue); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Decimal.MinValue); });
                 // Exception Test Case
-                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Decimal.MaxValue); }, " Exception not Thrown!");
+                Assert.Throws<InvalidCastException>(() => { Char result = Convert.ToChar(Decimal.MaxValue); });
             }
 
             ///////////////////////////////////////////// []Char Convert.ToChar( DateTime )
-            Assert.Throws<InvalidCastException>(() => { Char bTest = Convert.ToChar(DateTime.Now); }, " Exception not Thrown!");
+            Assert.Throws<InvalidCastException>(() => { Char bTest = Convert.ToChar(DateTime.Now); });
 
             //[] ToChar( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { Char bTest = Convert.ToChar(new Object()); }, " Exception not Thrown!");
+            Assert.Throws<InvalidCastException>(() => { Char bTest = Convert.ToChar(new Object()); });
 
             ///////////////////////////////////////////// []Char Convert.ToChar( Object, IFormatProvider )
-            Assert.Throws<InvalidCastException>(() => { Char bTest = Convert.ToChar(new Object(), new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<InvalidCastException>(() => { Char bTest = Convert.ToChar(new Object(), new TestFormatProvider()); });
         }
     }
 }

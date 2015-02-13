@@ -1,25 +1,14 @@
-// Closed bug history: VSWhidbey 103109, 155629
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_FromBase64String_str.cs
-//
-// Summary:
-// Tests Convert.ToBase64String(string).
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co8640FromBase64String_str.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xunit;
 
-[ContractsRequired("System.Collections, System.Runtime, System.Runtime.Extensions")]
 public class Co8640FromBase64String_str
 {
-    [TestMethod]
+    [Fact]
     public static void runTest()
     {
         //////////// Global Variables used for all tests
@@ -58,7 +47,6 @@ public class Co8640FromBase64String_str
                        and to the multipart boundary delimiters defined in RFC 2046 (e.g.,
                        "-").
 
-
                             Table 1: The Base64 Alphabet
 
              Value Encoding  Value Encoding  Value Encoding  Value Encoding
@@ -85,7 +73,7 @@ public class Co8640FromBase64String_str
         returnValue = Convert.FromBase64String(str1);
 
         //Please read the above description to understand this check			
-        Assert.AreEqual(3, returnValue.Length, "Err_743rewg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         threeByteRep = (uint)((returnValue[0] << 16) | (returnValue[1] << 8) | returnValue[2]);
         if (((threeByteRep >> 18) != 45)
@@ -94,17 +82,17 @@ public class Co8640FromBase64String_str
             || (((threeByteRep << 26) >> 26) != 45)
         )
         {
-            Assert.Fail("Err_834sdg! Unexpected returned result");
+            Assert.True(false, "Err_834sdg! Unexpected returned result");
         }
 
         //we will do the round trip as well to make sure!!!!
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_835sdg! Unexpected returned result");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //[] parms - BUT if string is empty, then OK - NDPWhidbey 11468
 
         str1 = "";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(0, returnValue.Length, "Err_743rewg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(0, returnValue.Length);
 
         //[]Strings can have the trailing '=' character - again, from the spec
         /**
@@ -140,35 +128,35 @@ public class Co8640FromBase64String_str
 
         str1 = "abc=";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(2, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(2, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result,");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //We can demostrate the failing of the 3rd character by using this string!!!
         str1 = "789=";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(2, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(2, returnValue.Length);
 
         //Now, we cannot decode the string correctly
         returnString = Convert.ToBase64String(returnValue);
-        Assert.AreNotEqual(str1, returnString, "Err_83gsd! Unexpected returned result,");
+        Assert.NotEqual(str1, returnString);
 
         //But the first 2 characters should be correct
-        Assert.AreEqual(str1.Substring(0, 2), returnString.Substring(0, 2), "Err_832745sd! Unexpected returned result");
+        Assert.Equal(str1.Substring(0, 2), returnString.Substring(0, 2));
 
         //[]We should correctly handle with 2 = characters
         str1 = "ab==";
         returnValue = Convert.FromBase64String(str1);
         //there will be only 1 byte in the array
-        Assert.AreEqual(1, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(1, returnValue.Length);
 
         //Now, we cannot decode the string correctly
         returnString = Convert.ToBase64String(returnValue);
-        Assert.AreNotEqual(str1, returnString, "Err_83gsd! Unexpected returned result,");
+        Assert.NotEqual(str1, returnString);
 
         //But the first 1 character should be correct
-        Assert.AreEqual(str1.Substring(0, 1), returnString.Substring(0, 1), "Err_832745sd! Unexpected returned result");
+        Assert.Equal(str1.Substring(0, 1), returnString.Substring(0, 1));
 
         //[] we should parse if there is any trailing space, '\t', '\n' and 'r' after = and before
         str1 = "abc= \t \r\n =";
@@ -179,7 +167,7 @@ public class Co8640FromBase64String_str
         returnValue = Convert.FromBase64String(str1);
 
         //Please read the above description to understand this check			
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         threeByteRep = (uint)((returnValue[0] << 16) | (returnValue[1] << 8) | returnValue[2]);
         if (((threeByteRep >> 18) != 45)
@@ -188,22 +176,22 @@ public class Co8640FromBase64String_str
             || (((threeByteRep << 26) >> 26) != 45)
         )
         {
-            Assert.Fail("Err_834sdg! Unexpected returned result");
+            Assert.True(false, "Err_834sdg! Unexpected returned result");
         }
 
         //we will do the round trip as well to make sure!!!!
-        Assert.AreEqual("test", Convert.ToBase64String(returnValue), "Err_87345sdg! Unexpected returned result");
+        Assert.Equal("test", Convert.ToBase64String(returnValue));
 
         //[] we should parse if there is any trailing space, '\t', '\n' and 'r' after =
         str1 = "abc=  \t\n\t\r ";
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(str1.Trim(), Convert.ToBase64String(returnValue), "Err_=tws! Unexpected returned result,");
+        Assert.Equal(str1.Trim(), Convert.ToBase64String(returnValue));
 
         //[] we should parse if there is any trailing space, '\t', '\n' and 'r' after =
         str1 = "abc \r\n\t   =  \t\n\t\r ";
         returnValue = Convert.FromBase64String(str1);
 
-        Assert.AreEqual("abc=", Convert.ToBase64String(returnValue), "Err_EtyBetuw! Unexpected returned result,");
+        Assert.Equal("abc=", Convert.ToBase64String(returnValue));
 
         //[]Is there a limit on the length of the string for this encoding?
 
@@ -211,10 +199,9 @@ public class Co8640FromBase64String_str
         for (int i = 0; i < 10000; i++)
             builder.Append('a');
 
-
         str1 = builder.ToString();
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(str1, Convert.ToBase64String(returnValue), "Err_89374sdg! Unexpected returned result,");
+        Assert.Equal(str1, Convert.ToBase64String(returnValue));
 
         //[]Bug 86920
         str1 = "test";
@@ -223,10 +210,10 @@ public class Co8640FromBase64String_str
         str1 = str1.PadLeft(1605, ' ');
         str1 = str1.Insert(str1.IndexOf('e'), new String(' ', 1543));
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result,");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         //[] try other characters we are going to ignore
         //we ignore the following white spaces
@@ -241,10 +228,10 @@ public class Co8640FromBase64String_str
         str1 = str1.PadLeft(1007, (Char)9);
         str1 = str1.Insert(str1.IndexOf('e'), new String((Char)9, 1829));
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result,");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         str1 = "test";
         str2 = str1;
@@ -252,10 +239,10 @@ public class Co8640FromBase64String_str
         str1 = str1.PadLeft(1883, (Char)10);
         str1 = str1.Insert(str1.IndexOf('e'), new String((Char)10, 1091));
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result,");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         str1 = "test";
         str2 = str1;
@@ -263,26 +250,25 @@ public class Co8640FromBase64String_str
         str1 = str1.PadLeft(1888, (Char)13);
         str1 = str1.Insert(str1.IndexOf('e'), new String((Char)13, 1344));
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(3, returnValue.Length, "Err_837454sdg! Unexpected returned result, " + returnValue.Length);
+        Assert.Equal(3, returnValue.Length);
 
         //amazingly, we can still get the original string!!!!
-        Assert.AreEqual(str2, Convert.ToBase64String(returnValue), "Err_83gsd! Unexpected returned result,");
+        Assert.Equal(str2, Convert.ToBase64String(returnValue));
 
         // VSWhidbey bug #103109 - empty string should succeed
         str1 = String.Empty;
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(0, returnValue.Length, "Err_876yvl!  returnValue.Lenght incorrect.");
+        Assert.Equal(0, returnValue.Length);
 
         // VSWhidbey bug #155629 - whitespace-only should succeed
         str1 = "    ";
 
         returnValue = Convert.FromBase64String(str1);
-        Assert.AreEqual(0, returnValue.Length, "Err_876yvl!  returnValue.Lenght incorrect.");
-
+        Assert.Equal(0, returnValue.Length);
         ///////////////////////////////////////////////////////////////////
         /////////////////////////// END TESTS /////////////////////////////
     }
-    [TestMethod]
+    [Fact]
     public static void runTest_negative()
     {
         //[] parms - if string is null
@@ -290,21 +276,21 @@ public class Co8640FromBase64String_str
         byte[] returnValue = null;
         StringBuilder builder = new StringBuilder();
         int count = 0;
-        Assert.Throws<ArgumentNullException>(() => returnValue = Convert.FromBase64String(str1), "Err_3475sdg! No Exception returned");
+        Assert.Throws<ArgumentNullException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[] parms - if string is less than 4 characters
 
         str1 = "No";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_3475sdg! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[] parms - if string is not multiple of 4 characters
         str1 = "NoMore";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_3475sdg! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[] parms - if string does not contain valid characters
 
         str1 = "2-34";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_3475sdg! No Exception returned");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[]We'll make sure of the invalid characters much more thorougly here by looking at the whole unicode range
 
@@ -334,45 +320,44 @@ public class Co8640FromBase64String_str
             } while (count == 0);
 
             str1 = builder.ToString();
-            Assert.AreEqual(4, str1.Length, "Loc_54wgsg! wrong argumetns");
-            Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_3475sdg! No Exception returned");
+            Assert.Equal(4, str1.Length);
+            Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
         }
 
         //[] we should throw if the = character is in the middle
         //UPDATE: 2001/9/22 aha!! bug 86920 states that whitespace should be allowed but this string now fails due to the length problem!!
 
         str1 = "No=n";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_39407g! No Exception returned,");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[] we should throw if there are more than 3 = character in the string
         str1 = "abc=====";
 
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_39407g! No Exception returned,");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[] we should throw if there are 3 = character in the string
         str1 = "a===";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_39407g! No Exception returned,");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[] we should throw if there are 3 = character in the string, after removing space, '\t', '\n' and '\r'
         str1 = "a===\r  \t  \n";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Err_39407g! No Exception returned,");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         //[]Bug 97500 try adding some = characters in a valid range - "abcdabc=abcd"
 
         str1 = "abcdabc=abcd";
 
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Exception expected.");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         str1 = "abcdab==abcd";
 
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Exception expected.");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         str1 = "abcda===abcd";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Exception expected.");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
 
         str1 = "abcd====abcd";
-        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1), "Exception expected.");
+        Assert.Throws<FormatException>(() => returnValue = Convert.FromBase64String(str1));
     }
 }
-
 

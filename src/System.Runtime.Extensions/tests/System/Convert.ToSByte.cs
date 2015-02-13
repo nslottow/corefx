@@ -1,24 +1,15 @@
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//
-// Convert_ToSByte_all.cs
-//
-// Summary:
-// Tests Convert.ToSByte().
-//
-// \qa\clr\testsrc\CoreMangLib\BCL\System\Convert:
-// Co6064ToSByte_all.cs
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-using CoreFXTestLibrary;
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
+using Xunit;
 // [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.FormatException))]
+
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6064ToSByte_all
     {
-        [TestMethod]
+        [Fact]
         public static void runTest()
         {
             ///////////////////////////////////////////// SByte Convert.ToSByte( Boolean )
@@ -33,7 +24,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +40,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +57,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +73,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +89,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +106,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -132,7 +123,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -148,7 +139,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ///////////////////////////////////////////// []SByte Convert.ToSByte( String, IFormatPRovider )
@@ -161,7 +152,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i], new TestFormatProvider());
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -173,10 +164,10 @@ namespace Test
 
             {
                 String[] dummy = { null, };
-                Assert.AreEqual(0, Convert.ToSByte(dummy[0], 10), "Should be equal");
-                Assert.AreEqual(0, Convert.ToSByte(dummy[0], 2), "Should be equal");
-                Assert.AreEqual(0, Convert.ToSByte(dummy[0], 8), "Should be equal");
-                Assert.AreEqual(0, Convert.ToSByte(dummy[0], 16), "Should be equal");
+                Assert.Equal(0, Convert.ToSByte(dummy[0], 10));
+                Assert.Equal(0, Convert.ToSByte(dummy[0], 2));
+                Assert.Equal(0, Convert.ToSByte(dummy[0], 8));
+                Assert.Equal(0, Convert.ToSByte(dummy[0], 16));
             }
             {
                 String[] testValues = { "7f", "127", "177", "1111111", "80", "-128", "200", "10000000", };
@@ -186,7 +177,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i], testBases[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -204,7 +195,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -222,7 +213,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -241,7 +232,7 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
@@ -259,9 +250,8 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
-
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -277,24 +267,24 @@ namespace Test
                 for (int i = 0; i < testValues.Length; i++)
                 {
                     SByte result = Convert.ToSByte(testValues[i]);
-                    Assert.AreEqual(expectedValues[i], result, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
+                    Assert.Equal(expectedValues[i], result);
                 }
             }
 
             //[] ToSByte( Object ) - obj = null
             {
                 SByte bTest = Convert.ToSByte((Object)null);
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected 0, got " + bTest);
+                Assert.Equal(0, bTest);
             }
 
             //[] ToSByte( Object, IFP ) - obj = null
             {
                 SByte bTest = Convert.ToSByte((Object)null, new TestFormatProvider());
-                Assert.AreEqual(0, bTest, " wrong value returned.  expected 0, got " + bTest);
+                Assert.Equal(0, bTest);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public static void runTests_Negative()
         {
             {
@@ -304,7 +294,7 @@ namespace Test
                 Single[] errorValues = { Single.MaxValue, Single.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); });
                 }
             }
             {
@@ -313,7 +303,7 @@ namespace Test
                 Int32[] errorValues = { Int32.MaxValue, Int32.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); });
                 }
             }
             {
@@ -322,7 +312,7 @@ namespace Test
                 Int64[] errorValues = { Int64.MaxValue, Int64.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); });
                 }
             }
             {
@@ -331,13 +321,13 @@ namespace Test
                 Int16[] errorValues = { Int16.MaxValue, Int16.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); });
                 }
             }
             // Exception Test
             //[] ToSByte(Byte) - Exception Cases (Byte.MaxValue)
 
-            Assert.Throws<OverflowException>(() => Convert.ToSByte(Byte.MaxValue), "Err_SBYTE_OVERFLOW2 -- NO EXCEPTION ");
+            Assert.Throws<OverflowException>(() => Convert.ToSByte(Byte.MaxValue));
 
             // Exception Test Cases
             //[] ToSByte(Double) - Exception Cases (((Double) Int32.MaxValue ),((Double) Int32.MinValue ))
@@ -345,31 +335,30 @@ namespace Test
                 Double[] errorValues = { ((Double)Int32.MaxValue), ((Double)Int32.MinValue), };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); });
                 }
             }
             {
-
                 // Exception Test Cases
                 //[] ToSByte(Decimal) - Exception Cases (Decimal.MaxValue,Decimal.MinValue)
                 Decimal[] errorValues = { Decimal.MaxValue, Decimal.MinValue, };
                 for (int i = 0; i < errorValues.Length; i++)
                 {
-                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); }, " Exception not Thrown!");
+                    Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(errorValues[i]); });
                 }
             }
             // Exception Test Cases
             //[] ToSByte(String) - Exception Cases (Int32.MaxValue.ToString(),Int64.MaxValue.ToString(),null,"abba")
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int32.MaxValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int64.MaxValue.ToString()); }, " Exception not Thrown!");
-            Assert.Throws<FormatException>(() => { SByte result = Convert.ToSByte("abba"); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int32.MaxValue.ToString()); });
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int64.MaxValue.ToString()); });
+            Assert.Throws<FormatException>(() => { SByte result = Convert.ToSByte("abba"); });
 
             // Exception Test Cases
             //[] ToSByte(String) - Exception Cases (Int32.MaxValue.ToString(),Int64.MaxValue.ToString(),null,"abba")
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int32.MaxValue.ToString(), new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int64.MaxValue.ToString(), new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<ArgumentNullException>(() => { SByte result = Convert.ToSByte(null, new TestFormatProvider()); }, " Exception not Thrown!");
-            Assert.Throws<FormatException>(() => { SByte result = Convert.ToSByte("abba", new TestFormatProvider()); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int32.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Int64.MaxValue.ToString(), new TestFormatProvider()); });
+            Assert.Throws<ArgumentNullException>(() => { SByte result = Convert.ToSByte(null, new TestFormatProvider()); });
+            Assert.Throws<FormatException>(() => { SByte result = Convert.ToSByte("abba", new TestFormatProvider()); });
             {
                 // Exception Test Cases
                 //[] ToSByte(String,Int32) - Exception Cases {(null,2),("12",3),("11",5),("abba",8),("ffffffffffffffffffff",16)}
@@ -382,40 +371,39 @@ namespace Test
                     try
                     {
                         SByte result = Convert.ToSByte(errorValues[i], errorBases[i]);
-                        Assert.Fail("Exception expected: " + expectedExceptions[i]);
+                        Assert.True(false, "Exception expected: " + expectedExceptions[i]);
                     }
                     catch (Exception e)
                     {
-                        Assert.IsTrue(e.GetType().FullName.Equals(expectedExceptions[i]),
-                            " Wrong Exception Thrown. Expected" + expectedExceptions[i] + ", Actual: " + e.GetType().FullName);
+                        Assert.True(e.GetType().FullName.Equals(expectedExceptions[i]), " Wrong Exception Thrown. Expected" + expectedExceptions[i] + ", Actual: " + e.GetType().FullName);
                     }
                 }
             }
 
             // Exception Test Cases
             //[] ToSByte(UInt16) - Exception Cases (UInt16.MaxValue)
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(UInt16.MaxValue); }, " Exception not Thrown!");// Exception Test Cases
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(UInt16.MaxValue); });// Exception Test Cases
 
             // Exception Test Cases
             //[] ToSByte(UInt32) - Exception Cases (UInt32.MaxValue)
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(UInt32.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(UInt32.MaxValue); });
 
             // Exception Test Cases
             //[] ToSByte(UInt64) - Exception Cases (UInt64.MaxValue)
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(UInt64.MaxValue); }, " Exception not Thrown!");
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(UInt64.MaxValue); });
 
             // Exception test
             //[] ToSByte(Char) - Exception Cases (Char.MaxValue)
-            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Char.MaxValue); }, " No Exception Thrown.");
+            Assert.Throws<OverflowException>(() => { SByte result = Convert.ToSByte(Char.MaxValue); });
             ///////////////////////////////////////////// SByte Convert.ToSByte( Object )
             //[] ToSByte( Object ) - Exception Case (Object that does not implement IConvertible) 
-            Assert.Throws<InvalidCastException>(() => { SByte bTest = Convert.ToSByte(new Object()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { SByte bTest = Convert.ToSByte(new Object()); });
 
             ///////////////////////////////////////////// []SByte Convert.ToSByte( Object, IFormatPRovider )
-            Assert.Throws<InvalidCastException>(() => { SByte bTest = Convert.ToSByte(new Object(), new TestFormatProvider()); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { SByte bTest = Convert.ToSByte(new Object(), new TestFormatProvider()); });
 
             ///////////////////////////////////////////// []SByte Convert.ToSByte( DateTime )
-            Assert.Throws<InvalidCastException>(() => { SByte bTest = Convert.ToSByte(DateTime.Now); }, " No Exception Thrown");
+            Assert.Throws<InvalidCastException>(() => { SByte bTest = Convert.ToSByte(DateTime.Now); });
         }
     }
 }

@@ -1,107 +1,110 @@
-﻿ namespace NCLFunctional.UriBuilderTest
-{
-    using CoreFXTestLibrary;
-    using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-    [TestClass]
+using System;
+
+using Xunit;
+
+namespace NCLFunctional.UriBuilderTest
+{
     public class UriBuilderRefreshTest
     {
-        private static Uri StarterUri = new Uri("http://user:psw@host:9090/path/file.txt?query#fragment");
+        private static Uri s_StarterUri = new Uri("http://user:psw@host:9090/path/file.txt?query#fragment");
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangeScheme_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.Scheme, builder.Scheme);
-            Assert.AreEqual<String>(StarterUri.Scheme, builder.Uri.Scheme);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.Scheme, builder.Scheme);
+            Assert.Equal<String>(s_StarterUri.Scheme, builder.Uri.Scheme);
             String newValue = "newvalue";
             builder.Scheme = newValue;
-            Assert.AreEqual<String>(newValue, builder.Scheme);
-            Assert.AreEqual<String>(newValue, builder.Uri.Scheme);
+            Assert.Equal<String>(newValue, builder.Scheme);
+            Assert.Equal<String>(newValue, builder.Uri.Scheme);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangeUser_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.UserInfo, builder.UserName + ":" + builder.Password);
-            Assert.AreEqual<String>(StarterUri.UserInfo, builder.Uri.UserInfo);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.UserInfo, builder.UserName + ":" + builder.Password);
+            Assert.Equal<String>(s_StarterUri.UserInfo, builder.Uri.UserInfo);
             String newValue = "newvalue";
             builder.UserName = newValue;
-            Assert.AreEqual<String>(newValue, builder.UserName);
-            Assert.AreEqual<String>(newValue + ":" + builder.Password, builder.Uri.UserInfo);
+            Assert.Equal<String>(newValue, builder.UserName);
+            Assert.Equal<String>(newValue + ":" + builder.Password, builder.Uri.UserInfo);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangePassword_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.UserInfo, builder.UserName + ":" + builder.Password);
-            Assert.AreEqual<String>(StarterUri.UserInfo, builder.Uri.UserInfo);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.UserInfo, builder.UserName + ":" + builder.Password);
+            Assert.Equal<String>(s_StarterUri.UserInfo, builder.Uri.UserInfo);
             String newValue = "newvalue";
             builder.Password = newValue;
-            Assert.AreEqual<String>(newValue, builder.Password);
-            Assert.AreEqual<String>(builder.UserName + ":" + newValue, builder.Uri.UserInfo);
+            Assert.Equal<String>(newValue, builder.Password);
+            Assert.Equal<String>(builder.UserName + ":" + newValue, builder.Uri.UserInfo);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangeHost_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.Host, builder.Host);
-            Assert.AreEqual<String>(StarterUri.Host, builder.Uri.Host);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.Host, builder.Host);
+            Assert.Equal<String>(s_StarterUri.Host, builder.Uri.Host);
             String newValue = "newvalue";
             builder.Host = newValue;
-            Assert.AreEqual<String>(newValue, builder.Host);
-            Assert.AreEqual<String>(newValue, builder.Uri.Host);
+            Assert.Equal<String>(newValue, builder.Host);
+            Assert.Equal<String>(newValue, builder.Uri.Host);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangePort_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<int>(StarterUri.Port, builder.Port);
-            Assert.AreEqual<int>(StarterUri.Port, builder.Uri.Port);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<int>(s_StarterUri.Port, builder.Port);
+            Assert.Equal<int>(s_StarterUri.Port, builder.Uri.Port);
             int newValue = 1010;
             builder.Port = newValue;
-            Assert.AreEqual<int>(newValue, builder.Port);
-            Assert.AreEqual<int>(newValue, builder.Uri.Port);
+            Assert.Equal<int>(newValue, builder.Port);
+            Assert.Equal<int>(newValue, builder.Uri.Port);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangePath_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.AbsolutePath, builder.Path);
-            Assert.AreEqual<String>(StarterUri.AbsolutePath, builder.Uri.AbsolutePath);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.AbsolutePath, builder.Path);
+            Assert.Equal<String>(s_StarterUri.AbsolutePath, builder.Uri.AbsolutePath);
             String newValue = "/newvalue";
             builder.Path = newValue;
-            Assert.AreEqual<String>(newValue, builder.Path);
-            Assert.AreEqual<String>(newValue, builder.Uri.AbsolutePath);
+            Assert.Equal<String>(newValue, builder.Path);
+            Assert.Equal<String>(newValue, builder.Uri.AbsolutePath);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangeQuery_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.Query, builder.Query);
-            Assert.AreEqual<String>(StarterUri.Query, builder.Uri.Query);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.Query, builder.Query);
+            Assert.Equal<String>(s_StarterUri.Query, builder.Uri.Query);
             String newValue = "newvalue";
             builder.Query = newValue;
-            Assert.AreEqual<String>("?" + newValue, builder.Query);
-            Assert.AreEqual<String>("?" + newValue, builder.Uri.Query);
+            Assert.Equal<String>("?" + newValue, builder.Query);
+            Assert.Equal<String>("?" + newValue, builder.Uri.Query);
         }
 
-        [TestMethod]
+        [Fact]
         public void UriBuilder_ChangeFragment_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(StarterUri);
-            Assert.AreEqual<String>(StarterUri.Fragment, builder.Fragment);
-            Assert.AreEqual<String>(StarterUri.Fragment, builder.Uri.Fragment);
+            UriBuilder builder = new UriBuilder(s_StarterUri);
+            Assert.Equal<String>(s_StarterUri.Fragment, builder.Fragment);
+            Assert.Equal<String>(s_StarterUri.Fragment, builder.Uri.Fragment);
             String newValue = "newvalue";
             builder.Fragment = newValue;
-            Assert.AreEqual<String>("#" + newValue, builder.Fragment);
-            Assert.AreEqual<String>("#" + newValue, builder.Uri.Fragment);
+            Assert.Equal<String>("#" + newValue, builder.Fragment);
+            Assert.Equal<String>("#" + newValue, builder.Uri.Fragment);
         }
     }
 }
