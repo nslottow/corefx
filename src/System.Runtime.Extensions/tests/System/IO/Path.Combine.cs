@@ -125,22 +125,22 @@ namespace PathTests
         {
             String rVal;
 
-            Logger.LogInformation("");
-            Logger.LogInformation("Testing on combining: ");
+            //Logger.LogInformation("");
+            //Logger.LogInformation("Testing on combining: ");
             bool first = true;
             foreach (string s in paths)
             {
                 if (!first)
                 {
-                    Logger.LogInformation(", ");
+                    //Logger.LogInformation(", ");
                 }
                 else
                 {
                     first = false;
                 }
-                Logger.LogInformation(s);
+                //Logger.LogInformation(s);
             }
-            Logger.LogInformation("");
+            //Logger.LogInformation("");
 
             String expected = String.Empty;
             if (paths.Length > 0) expected = paths[0];
@@ -210,8 +210,8 @@ namespace PathTests
         {
             String rVal;
 
-            Logger.LogInformation("");
-            Logger.LogInformation("Testing on combining: ");
+            //Logger.LogInformation("");
+            //Logger.LogInformation("Testing on combining: ");
             if (paths != null)
             {
                 bool first = true;
@@ -219,15 +219,15 @@ namespace PathTests
                 {
                     if (!first)
                     {
-                        Logger.LogInformation(", ");
+                        //Logger.LogInformation(", ");
                     }
                     else
                     {
                         first = false;
                     }
-                    Logger.LogInformation("{0}", s);
+                    //Logger.LogInformation("{0}", s);
                 }
-                Logger.LogInformation("");
+                //Logger.LogInformation("");
             }
 
             Assert.Throws<T>(() => { rVal = Path.Combine(paths); });

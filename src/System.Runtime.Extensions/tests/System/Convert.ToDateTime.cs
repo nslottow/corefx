@@ -40,7 +40,7 @@ namespace Test
                     DateTime result = Convert.ToDateTime(testValues[i]);
                     if (!result.Equals(expectedValues[i]))
                     {
-                        Logger.LogInformation("{0} - {1} - {2}", result.Ticks, expectedValues[i].Ticks, testValues[i]);
+                        //Logger.LogInformation("{0} - {1} - {2}", result.Ticks, expectedValues[i].Ticks, testValues[i]);
                         Assert.True(false, " Expected = '" + expectedValues[i] + "' ... Received = '" + result + "'.");
                     }
                 }

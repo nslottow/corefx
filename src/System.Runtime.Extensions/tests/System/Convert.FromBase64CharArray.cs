@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xunit;
 
@@ -290,7 +290,7 @@ public class Co8639FromBase64CharArray_chArr_ii
 
         //[]We'll make sure of the invalid characters much more thorougly here by looking at the whole unicode range
 
-        List<int> exclusionList = new List<int>();
+        Collection<int> exclusionList = new Collection<int>();
         exclusionList.Add(43);
         for (int i = 47; i <= 57; i++)
             exclusionList.Add(i);

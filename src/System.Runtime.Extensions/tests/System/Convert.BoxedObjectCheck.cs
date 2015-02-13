@@ -35,7 +35,7 @@ public class Co8826BoxedObjectCheck
 
         foreach (Object o in tests)
         {
-            Logger.LogInformation("Testing equals, referenceEquals with object: " + o.ToString());
+            //Logger.LogInformation("Testing equals, referenceEquals with object: " + o.ToString());
 
             //[]==operator - should return reference equals and we expect false
             Assert.False(o == ValueTypeSafety.GetSafeObject(o), "Err_9345sgd! ==operator - should return reference equals and we expect false");

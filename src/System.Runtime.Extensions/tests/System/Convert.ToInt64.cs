@@ -8,7 +8,6 @@ using Xunit;
 
 namespace Test
 {
-    [ContractsRequired("System.Runtime, System.Runtime.Extensions")]
     public class Co6062ToInt64_all
     {
         [Fact]

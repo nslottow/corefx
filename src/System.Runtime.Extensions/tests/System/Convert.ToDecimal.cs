@@ -374,7 +374,7 @@ namespace Test
                 }
                 catch (InvalidCastException)
                 {
-                    Logger.LogInformation("exception caught for index: " + i);
+                    //Logger.LogInformation("exception caught for index: " + i);
                 }
                 //Assert.Throws<InvalidCastException>(() => {  }, "Exception expected.");
             }
