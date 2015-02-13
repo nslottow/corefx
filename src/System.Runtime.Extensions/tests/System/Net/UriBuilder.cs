@@ -2,21 +2,20 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-
 using Xunit;
 
 namespace NCLFunctional.UriBuilderTest
 {
     public class UriBuilderRefreshTest
     {
-        private static Uri s_StarterUri = new Uri("http://user:psw@host:9090/path/file.txt?query#fragment");
+        private static Uri s_starterUri = new Uri("http://user:psw@host:9090/path/file.txt?query#fragment");
 
         [Fact]
         public void UriBuilder_ChangeScheme_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.Scheme, builder.Scheme);
-            Assert.Equal<String>(s_StarterUri.Scheme, builder.Uri.Scheme);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.Scheme, builder.Scheme);
+            Assert.Equal<String>(s_starterUri.Scheme, builder.Uri.Scheme);
             String newValue = "newvalue";
             builder.Scheme = newValue;
             Assert.Equal<String>(newValue, builder.Scheme);
@@ -26,9 +25,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangeUser_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.UserInfo, builder.UserName + ":" + builder.Password);
-            Assert.Equal<String>(s_StarterUri.UserInfo, builder.Uri.UserInfo);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.UserInfo, builder.UserName + ":" + builder.Password);
+            Assert.Equal<String>(s_starterUri.UserInfo, builder.Uri.UserInfo);
             String newValue = "newvalue";
             builder.UserName = newValue;
             Assert.Equal<String>(newValue, builder.UserName);
@@ -38,9 +37,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangePassword_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.UserInfo, builder.UserName + ":" + builder.Password);
-            Assert.Equal<String>(s_StarterUri.UserInfo, builder.Uri.UserInfo);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.UserInfo, builder.UserName + ":" + builder.Password);
+            Assert.Equal<String>(s_starterUri.UserInfo, builder.Uri.UserInfo);
             String newValue = "newvalue";
             builder.Password = newValue;
             Assert.Equal<String>(newValue, builder.Password);
@@ -50,9 +49,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangeHost_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.Host, builder.Host);
-            Assert.Equal<String>(s_StarterUri.Host, builder.Uri.Host);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.Host, builder.Host);
+            Assert.Equal<String>(s_starterUri.Host, builder.Uri.Host);
             String newValue = "newvalue";
             builder.Host = newValue;
             Assert.Equal<String>(newValue, builder.Host);
@@ -62,9 +61,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangePort_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<int>(s_StarterUri.Port, builder.Port);
-            Assert.Equal<int>(s_StarterUri.Port, builder.Uri.Port);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<int>(s_starterUri.Port, builder.Port);
+            Assert.Equal<int>(s_starterUri.Port, builder.Uri.Port);
             int newValue = 1010;
             builder.Port = newValue;
             Assert.Equal<int>(newValue, builder.Port);
@@ -74,9 +73,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangePath_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.AbsolutePath, builder.Path);
-            Assert.Equal<String>(s_StarterUri.AbsolutePath, builder.Uri.AbsolutePath);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.AbsolutePath, builder.Path);
+            Assert.Equal<String>(s_starterUri.AbsolutePath, builder.Uri.AbsolutePath);
             String newValue = "/newvalue";
             builder.Path = newValue;
             Assert.Equal<String>(newValue, builder.Path);
@@ -86,9 +85,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangeQuery_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.Query, builder.Query);
-            Assert.Equal<String>(s_StarterUri.Query, builder.Uri.Query);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.Query, builder.Query);
+            Assert.Equal<String>(s_starterUri.Query, builder.Uri.Query);
             String newValue = "newvalue";
             builder.Query = newValue;
             Assert.Equal<String>("?" + newValue, builder.Query);
@@ -98,9 +97,9 @@ namespace NCLFunctional.UriBuilderTest
         [Fact]
         public void UriBuilder_ChangeFragment_Refreshed()
         {
-            UriBuilder builder = new UriBuilder(s_StarterUri);
-            Assert.Equal<String>(s_StarterUri.Fragment, builder.Fragment);
-            Assert.Equal<String>(s_StarterUri.Fragment, builder.Uri.Fragment);
+            UriBuilder builder = new UriBuilder(s_starterUri);
+            Assert.Equal<String>(s_starterUri.Fragment, builder.Fragment);
+            Assert.Equal<String>(s_starterUri.Fragment, builder.Uri.Fragment);
             String newValue = "newvalue";
             builder.Fragment = newValue;
             Assert.Equal<String>("#" + newValue, builder.Fragment);
