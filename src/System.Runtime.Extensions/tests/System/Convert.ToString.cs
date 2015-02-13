@@ -5,11 +5,6 @@ using System;
 using System.Globalization;
 using Xunit;
 
-// These are so tests won't get hit with EEType when converting ToString
-// [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(Cc3715ToString_all))]
-// [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(System.Globalization.NumberFormatInfo))]
-// [assembly: System.Reflection.Consumption.EnableDynamicProgramming(typeof(Foo))]
-
 internal class FooFormattable : IFormattable
 {
     private int _value;
@@ -103,14 +98,12 @@ public class Cc3715ToString_all
     [Fact]
     public static void convertTest1()
     {
-        //Update: 2001/03/31 unfortuntaly, the il treats this as calls to Convert.ToString(Object)
+        //Update: 2001/03/31 unfortunately, the il treats this as calls to Convert.ToString(Object)
         //We want these to be handled independently. Hence writing more code below to call each individual type separately.
 
         for (int i = 0; i < s_vArrInputs.Length; i++)
         {
-            s_strResult = Convert.ToString(s_vArrInputs[i]);
-            Assert.Equal(s_strArrExps[i], s_strResult);
-            s_strResult = Convert.ToString(s_vArrInputs[i], new NumberFormatInfo());
+            s_strResult = Convert.ToString(s_vArrInputs[i], NumberFormatInfo.InvariantInfo);
             Assert.Equal(s_strArrExps[i], s_strResult);
         }
     }
@@ -120,9 +113,7 @@ public class Cc3715ToString_all
     {
         for (int aa = 0; aa < s_cArrInputs.Length; aa++)
         {
-            s_strResult = Convert.ToString(s_cArrInputs[aa]);
-            Assert.Equal(s_strCArrExps[aa], s_strResult);
-            s_strResult = Convert.ToString(s_cArrInputs[aa], new NumberFormatInfo());
+            s_strResult = Convert.ToString(s_cArrInputs[aa], NumberFormatInfo.InvariantInfo);
             Assert.Equal(s_strCArrExps[aa], s_strResult);
         }
     }
@@ -390,7 +381,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -407,7 +398,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -424,7 +415,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -441,7 +432,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -458,7 +449,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -475,7 +466,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -492,7 +483,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -509,7 +500,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -527,7 +518,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -545,7 +536,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -562,7 +553,7 @@ public class Cc3715ToString_all
                 String result = Convert.ToString(testValues[i]);
                 Assert.Equal(testValues[i].ToString(), result);
                 result = Convert.ToString(testValues[i], new NumberFormatInfo());
-                Assert.Equal(testValues[i].ToString(), result);
+                Assert.Equal(testValues[i].ToString(new NumberFormatInfo()), result);
             }
         }
     }
@@ -708,7 +699,7 @@ public class Cc3715ToString_all
         s_vArrInputs[i++] = (d);
         //[] ToString(double) - Double.NaN
         d = Double.NaN;
-        s_vArrInputs[i++] = (d); ;
+        s_vArrInputs[i++] = (d);
 
         //float
         //[] ToString(Single) - -12.2364
