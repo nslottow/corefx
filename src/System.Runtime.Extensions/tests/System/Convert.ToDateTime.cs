@@ -23,10 +23,11 @@ public class ConvertToDateTimeTests : ConvertTestBase<DateTime>
         if (expectedValues[3] < dateTimeFormat.Calendar.MinSupportedDateTime)
             expectedValues[3] = dateTimeFormat.Calendar.MinSupportedDateTime;
 
-        String[] testValues = new String[4];
+        string pattern = dateTimeFormat.LongDatePattern + ' ' + dateTimeFormat.LongTimePattern;
+        String[] testValues = new String[expectedValues.Length];
         for (int i = 0; i < expectedValues.Length; i++)
         {
-            testValues[i] = expectedValues[i].ToString(dateTimeFormat.LongDatePattern, dateTimeFormat);
+            testValues[i] = expectedValues[i].ToString(pattern, dateTimeFormat);
         }
 
         VerifyFromString(Convert.ToDateTime, Convert.ToDateTime, testValues, expectedValues);
@@ -72,7 +73,6 @@ public class ConvertToDateTimeTests : ConvertTestBase<DateTime>
     [Fact]
     public void FromObject()
     {
-        Assert.Throws<InvalidCastException>(() => Convert.ToDateTime((Object)null));
         Assert.Throws<InvalidCastException>(() => Convert.ToDateTime(new Object()));
         Assert.Throws<InvalidCastException>(() => Convert.ToDateTime(new Object(), s_dateTimeFormatInfo));
     }

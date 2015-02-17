@@ -96,7 +96,7 @@ public class ConvertToDoubleTests : ConvertTestBase<Double>
         Double[] expectedValues = { Double.MinValue, Double.MaxValue, 0.0, 10.0, -10.0, 0.0 };
         VerifyFromString(Convert.ToDouble, Convert.ToDouble, testValues, expectedValues);
 
-        String[] overflowValues = { Double.MaxValue.ToString(), Double.MinValue.ToString(), "1.7976931348623155E309", "-1.7976931348623155E309" };
+        String[] overflowValues = { Double.MaxValue.ToString(), Double.MinValue.ToString() };
         VerifyFromStringThrows<OverflowException>(Convert.ToDouble, Convert.ToDouble, overflowValues);
 
         String[] formatExceptionValues = { "123xyz" };
