@@ -22,7 +22,6 @@ public class ConvertToBase64StringTests
         // 000001 010000 011000 000111 000010 000000 000000 000000
         // B      Q      Y      H      C      A      =      =
 
-        string expected = "BQYHCA==";
         Assert.Equal("BQYHCA==", Convert.ToBase64String(inputBytes));
     }
 
